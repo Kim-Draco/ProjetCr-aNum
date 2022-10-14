@@ -17,7 +17,7 @@ Suivez les instructions suivantes
 |Nom                   |Tâches     |
 |----------------------|-----------|
 |Camille Hascoët       |Visuel     |
-|Kim-Brice Thai        |           |
+|Kim-Brice Thai        |Visuel     |
 |Adrien Ferreira       |           |
 |Audrey Bacon          |           |
 |Minh Anh Nguyen       |           |
