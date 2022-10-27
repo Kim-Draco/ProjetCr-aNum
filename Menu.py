@@ -1,4 +1,5 @@
 import pygame
+from Colors import COLORS
 
 class MENU(pygame.sprite.Sprite):
 
@@ -16,3 +17,20 @@ class MENU(pygame.sprite.Sprite):
 
     def Select(self, color):
         pygame.draw.rect(self.image, color, [0, 0, self.rect.width, self.rect.height])
+
+class CREA_MENU():
+
+    NbMenu = 2
+    Selection = 0
+
+    list_Selections = pygame.sprite.Group()
+    index_list_Selections = []
+    index_list_Selections.append(MENU(COLORS.YELLOW, 100, 50))
+    index_list_Selections[0].rect.x = 100
+    index_list_Selections[0].rect.y = 225
+    index_list_Selections.append(MENU(COLORS.YELLOW, 100, 50))
+    index_list_Selections[1].rect.x = 300
+    index_list_Selections[1].rect.y = 225
+    index_list_Selections.append(MENU(COLORS.YELLOW, 100, 50))
+    index_list_Selections[2].rect.x = 500
+    index_list_Selections[2].rect.y = 225
