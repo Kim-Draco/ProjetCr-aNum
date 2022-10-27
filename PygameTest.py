@@ -52,8 +52,7 @@ while carryOn:
         if event.type == pygame.QUIT: # If user clicked close
               carryOn = False # Flag that we are done so we can exit the while loop
         elif event.type==pygame.KEYDOWN:
-            if event.key==pygame.K_ESCAPE:
-                carryOn=False
+
             if event.key==pygame.K_RIGHT:
                 if Selection < NbMenu:
                     Selection += 1                    
@@ -63,7 +62,7 @@ while carryOn:
                 if Selection > 0:
                     Selection -= 1                    
                 else:
-                    Selection = NbMenu - 1
+                    Selection = NbMenu
             if event.key==pygame.K_RETURN and Selection == NbMenu:
                 carryOn=False
     # --- Game logic should go here
