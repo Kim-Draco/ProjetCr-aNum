@@ -12,7 +12,7 @@ class MENU(pygame.sprite.Sprite):
         self.image.set_colorkey([255,0,255])
 
         pygame.draw.rect(self.image, color, [0, 0, size_x, size_y])
-
+        
         self.rect = self.image.get_rect()
 
     def Select(self, color):
@@ -20,17 +20,26 @@ class MENU(pygame.sprite.Sprite):
 
 class CREA_MENU():
 
-    NbMenu = 2
+    NbMenu = 3
     Selection = 0
 
     list_Selections = pygame.sprite.Group()
     index_list_Selections = []
-    index_list_Selections.append(MENU(COLORS.YELLOW, 100, 50))
-    index_list_Selections[0].rect.x = 100
-    index_list_Selections[0].rect.y = 225
-    index_list_Selections.append(MENU(COLORS.YELLOW, 100, 50))
-    index_list_Selections[1].rect.x = 300
-    index_list_Selections[1].rect.y = 225
-    index_list_Selections.append(MENU(COLORS.YELLOW, 100, 50))
-    index_list_Selections[2].rect.x = 500
-    index_list_Selections[2].rect.y = 225
+    index_list_Selections.append(pygame.image.load("images/PageAcceuil/AccueilPLay.png"))
+    index_list_Selections.append(pygame.image.load("images/PageAcceuil/AccueilNote.png"))
+    index_list_Selections.append(pygame.image.load("images/PageAcceuil/AccueilOption.png"))
+    index_list_Selections.append(pygame.image.load("images/PageAcceuil/AccueilQuitter.png"))
+
+    RectMenu_list_Selections = []
+    RectMenu_list_Selections.append(MENU(COLORS.YELLOW, 200, 560))
+    RectMenu_list_Selections[0].rect.x = 350
+    RectMenu_list_Selections[0].rect.y = 110
+    RectMenu_list_Selections.append(MENU(COLORS.YELLOW, 100, 50))
+    RectMenu_list_Selections[1].rect.x = 300
+    RectMenu_list_Selections[1].rect.y = 225
+    RectMenu_list_Selections.append(MENU(COLORS.YELLOW, 100, 50))
+    RectMenu_list_Selections[2].rect.x = 500
+    RectMenu_list_Selections[2].rect.y = 225
+    RectMenu_list_Selections.append(MENU(COLORS.YELLOW, 100, 50))
+    RectMenu_list_Selections[3].rect.x = 500
+    RectMenu_list_Selections[3].rect.y = 225
