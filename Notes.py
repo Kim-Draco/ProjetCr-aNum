@@ -1,5 +1,6 @@
 from asyncio import events
 import pygame
+from tuner import Tuner
 
 class JOUENOTE():
 

@@ -7,7 +7,7 @@ pygame.init()
 
 size = (1280,720)
 screen = pygame.display.set_mode(size)
-background = pygame.image.load("images/PageAcceuil/AccueilPLay.png")
+background = pygame.image.load("images/PageAcceuil/AccueilPlay.png")
 background = pygame.transform.scale(background, (1280, 720))
 
 index_list_Selections = CREA_MENU.index_list_Selections
