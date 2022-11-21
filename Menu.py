@@ -25,7 +25,7 @@ class CREA_MENU():
 
     list_Selections = pygame.sprite.Group()
     index_list_Selections = []
-    index_list_Selections.append(pygame.image.load("images/PageAcceuil/AccueilPLay.png"))
+    index_list_Selections.append(pygame.image.load("images/PageAcceuil/AccueilPlay.png"))
     index_list_Selections.append(pygame.image.load("images/PageAcceuil/AccueilNote.png"))
     index_list_Selections.append(pygame.image.load("images/PageAcceuil/AccueilOption.png"))
     index_list_Selections.append(pygame.image.load("images/PageAcceuil/AccueilQuitter.png"))

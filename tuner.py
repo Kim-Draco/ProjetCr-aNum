@@ -62,7 +62,7 @@ class Tuner:
     def note_to_fftbin(self, n):
         return self.number_to_freq(n) / self.FREQ_STEP
 
-    def demarre(self):
+    def musique(self):
 
         imin = max(0, int(np.floor(self.note_to_fftbin(self.NOTE_MIN - 1))))
         imax = min(self.samples_per_fft, int(np.ceil(self.note_to_fftbin(self.NOTE_MAX + 1))))
