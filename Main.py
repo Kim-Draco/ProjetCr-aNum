@@ -3,6 +3,8 @@ import pygame, random
 from Menu import MENU, CREA_MENU
 from Colors import COLORS
 from Notes import JOUENOTE
+from tuner import Tuner
+
 pygame.init()
 
 size = (1280,720)
@@ -29,11 +31,10 @@ carryOn = True
 clock = pygame.time.Clock()
 
 
-
 # -------- Main Program Loop -----------
 while carryOn:
     # --- Main event loop
-    
+
     for event in pygame.event.get(): # User did something
         if event.type == pygame.QUIT: # If user clicked close
               carryOn = False # Flag that we are done so we can exit the while loop

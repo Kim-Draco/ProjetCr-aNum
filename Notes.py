@@ -16,7 +16,7 @@ class JOUENOTE():
         while carryOnThis and carryOn:
             for event in pygame.event.get(): # User did something
                 if event.type == pygame.QUIT: # If user clicked close
-                    pygame.quit() # Flag that we are done so we can exit the while loop
+                    pygame.quit() # Flag that we are done, so we can exit the while loop
                 elif event.type==pygame.KEYDOWN:
                     if event.key==pygame.K_ESCAPE:
                         carryOnThis = False
@@ -25,6 +25,12 @@ class JOUENOTE():
 
             # --- Go ahead and update the screen with what we've drawn.
             pygame.display.flip()
+
+            # Charge tuner
+            # Ne fonctionne pas pour l'instant plus rien ne fonctionne pendant l'écoute
+            #tuner = Tuner()
+            # Start listening to the notes played
+            #tuner.musique()
             
             # --- Limit to 60 frames per second
             clock.tick(60)
