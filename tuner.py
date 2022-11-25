@@ -12,7 +12,8 @@
 import numpy as np
 import pyaudio
 import datetime
-import pygame
+
+import pygame.image
 
 
 ######################################################################
@@ -29,8 +30,7 @@ class Tuner:
     ######################################################################
 
     def __init__(self):
-        self.image1 = pygame.image.load('images/Symbols/Bar_lines.png')
-        self.image1_rect = self.image1.get_rect()
+        self.image1 = pygame.image.load('images/Symbols/note.png')
         # For printing out notes
         self.note_names = 'C C# D D# E F F# G G# A A# B'.split()
 
@@ -65,7 +65,7 @@ class Tuner:
     def note_to_fftbin(self, n):
         return self.number_to_freq(n) / self.FREQ_STEP
 
-    def musique(self, screen):
+    def musique(self):
 
         imin = max(0, int(np.floor(self.note_to_fftbin(self.NOTE_MIN - 1))))
         imax = min(self.samples_per_fft, int(np.ceil(self.note_to_fftbin(self.NOTE_MAX + 1))))
@@ -123,8 +123,6 @@ class Tuner:
                     stream.stop_stream()
                     if (note_valid == self.note_name(n0).split('.')[0]):
                         print('note found !!')
-                        screen.blit(self.image1, (0, 0))
-                        pygame.display.flip()
                     else:
                         print('time out :(')
                     print('------------------------------')

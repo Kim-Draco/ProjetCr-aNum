@@ -34,9 +34,9 @@ class CREA_MENU():
     RectMenu_list_Selections.append(MENU(COLORS.YELLOW, 200, 560))
     RectMenu_list_Selections[0].rect.x = 350
     RectMenu_list_Selections[0].rect.y = 110
-    RectMenu_list_Selections.append(MENU(COLORS.YELLOW, 100, 50))
-    RectMenu_list_Selections[1].rect.x = 300
-    RectMenu_list_Selections[1].rect.y = 225
+    RectMenu_list_Selections.append(MENU(COLORS.YELLOW, 200, 200))
+    RectMenu_list_Selections[1].rect.x = 700
+    RectMenu_list_Selections[1].rect.y = 110
     RectMenu_list_Selections.append(MENU(COLORS.YELLOW, 100, 50))
     RectMenu_list_Selections[2].rect.x = 500
     RectMenu_list_Selections[2].rect.y = 225
