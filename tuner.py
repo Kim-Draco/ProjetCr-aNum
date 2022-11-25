@@ -13,6 +13,8 @@ import numpy as np
 import pyaudio
 import datetime
 
+import pygame.image
+
 
 ######################################################################
 # Feel free to play with these numbers. Might want to change NOTE_MIN
@@ -28,6 +30,7 @@ class Tuner:
     ######################################################################
 
     def __init__(self):
+        self.image1 = pygame.image.load('images/Symbols/note.png')
         # For printing out notes
         self.note_names = 'C C# D D# E F F# G G# A A# B'.split()
 

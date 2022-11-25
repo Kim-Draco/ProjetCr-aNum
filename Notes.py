@@ -28,9 +28,9 @@ class JOUENOTE():
 
             # Charge tuner
             # Ne fonctionne pas pour l'instant plus rien ne fonctionne pendant l'écoute
-            #tuner = Tuner()
+            tuner = Tuner()
             # Start listening to the notes played
-            #tuner.musique()
+            tuner.musique()
             
             # --- Limit to 60 frames per second
             clock.tick(60)
