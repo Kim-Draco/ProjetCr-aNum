@@ -5,6 +5,8 @@ from tuner import Tuner
 class JOUENOTE():
 
     def __init__(self, screen, carryOn):
+        self.bar = pygame.image.load('images/Symbols/Bar_lines.png')
+        self.bar = pygame.transform.scale(self.bar, (1280, 720))
 
         # The loop will carry on until the user exits the game (e.g. clicks the close button).
         carryOnThis = True
@@ -22,15 +24,15 @@ class JOUENOTE():
                         carryOnThis = False
                         
             screen.fill([150,150,150])
+            screen.blit(self.bar, (0, 0))
 
             # --- Go ahead and update the screen with what we've drawn.
             pygame.display.flip()
 
             # Charge tuner
-            # Ne fonctionne pas pour l'instant plus rien ne fonctionne pendant l'écoute
-            tuner = Tuner()
+            # tuner = Tuner()
             # Start listening to the notes played
-            tuner.musique()
+            # tuner.musique(screen)
             
             # --- Limit to 60 frames per second
             clock.tick(60)
