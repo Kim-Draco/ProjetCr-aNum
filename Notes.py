@@ -36,7 +36,7 @@ class JOUENOTE():
             # Charge tuner
             tuner = Tuner()
             # Start listening to the notes played
-            tuner.musique(carryOnThis, carryOn)
+            carryOnThis = tuner.musique(carryOn, carryOnThis)
             
             # --- Limit to 60 frames per second
             clock.tick(60)

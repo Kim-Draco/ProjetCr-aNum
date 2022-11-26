@@ -13,7 +13,7 @@ import numpy as np
 import pyaudio
 import datetime
 
-import pygame.image
+import pygame
 
 
 ######################################################################
@@ -65,7 +65,7 @@ class Tuner:
     def note_to_fftbin(self, n):
         return self.number_to_freq(n) / self.FREQ_STEP
 
-    def musique(self, carryOnThis, carryOn):
+    def musique(self, carryOn, carryOnThis):
 
         imin = max(0, int(np.floor(self.note_to_fftbin(self.NOTE_MIN - 1))))
         imax = min(self.samples_per_fft, int(np.ceil(self.note_to_fftbin(self.NOTE_MAX + 1))))
@@ -82,7 +82,12 @@ class Tuner:
                                         frames_per_buffer=self.FRAME_SIZE)
 
         zelda_lullaby = ['B4', 'D5', 'A4', 'G4', 'A4', 'B4', 'D5', 'A4', 'B4', 'D5', 'A5', 'G5', 'D5', 'C5', 'B4', 'A4']
-        while carryOn and carryOnThis:
+
+        carry = True
+        note_valid = 0
+
+        while carryOn and carryOnThis and carry and note_valid < len(zelda_lullaby):
+
             for event in pygame.event.get():  # User did something
                 if event.type == pygame.QUIT:  # If user clicked close
                     pygame.quit()
@@ -90,51 +95,52 @@ class Tuner:
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         carryOnThis = False
+                        return carryOnThis
 
-            for note_valid in zelda_lullaby:
-                print('------------------------------')
-                print(note_valid)
+            print('------------------------------')
+            print(zelda_lullaby[note_valid])
 
-                stream.start_stream()
-                start_time = datetime.datetime.now()
+            stream.start_stream()
+            start_time = datetime.datetime.now()
 
-                # Create Hanning window function
-                window = 0.5 * (1 - np.cos(np.linspace(0, 2 * np.pi, self.samples_per_fft, False)))
+            # Create Hanning window function
+            window = 0.5 * (1 - np.cos(np.linspace(0, 2 * np.pi, self.samples_per_fft, False)))
 
-                # Print initial text
-                # print ('sampling at', FSAMP, 'Hz with max resolution of', FREQ_STEP, 'Hz')
-                # print
-                # As long as we are getting data:
+            # Print initial text
+            # print ('sampling at', FSAMP, 'Hz with max resolution of', FREQ_STEP, 'Hz')
+            # print
+            # As long as we are getting data:
 
-                while stream.is_active():
+            while stream.is_active() and carryOnThis:
 
-                    # Shift the buffer down and new data in
-                    buf[:-self.FRAME_SIZE] = buf[self.FRAME_SIZE:]
-                    buf[-self.FRAME_SIZE:] = np.fromstring(stream.read(self.FRAME_SIZE), np.int16)
+                # Shift the buffer down and new data in
+                buf[:-self.FRAME_SIZE] = buf[self.FRAME_SIZE:]
+                buf[-self.FRAME_SIZE:] = np.fromstring(stream.read(self.FRAME_SIZE), np.int16)
 
-                    # Run the FFT on the windowed buffer
-                    fft = np.fft.rfft(buf * window)
+                # Run the FFT on the windowed buffer
+                fft = np.fft.rfft(buf * window)
 
-                    # Get frequency of maximum response in range
-                    freq = (np.abs(fft[imin:imax]).argmax() + imin) * self.FREQ_STEP
+                # Get frequency of maximum response in range
+                freq = (np.abs(fft[imin:imax]).argmax() + imin) * self.FREQ_STEP
 
-                    # Get note number and nearest note
-                    n = self.freq_to_number(freq)
-                    n0 = int(round(n))
+                # Get note number and nearest note
+                n = self.freq_to_number(freq)
+                n0 = int(round(n))
 
-                    # Console output once we have a full buffer
-                    num_frames += 1
+                # Console output once we have a full buffer
+                num_frames += 1
 
-                    # if num_frames >= FRAMES_PER_FFT:
-                    #     print ('freq: {:7.2f} Hz\tnote: {:>3s} {:+.2f}'.format(freq, note_name(n0), n-n0))
+                # if num_frames >= FRAMES_PER_FFT:
+                #     print ('freq: {:7.2f} Hz\tnote: {:>3s} {:+.2f}'.format(freq, note_name(n0), n-n0))
 
-                    time_elapsed = datetime.datetime.now() - start_time
-                    if (note_valid == self.note_name(n0).split('.')[0] or time_elapsed > datetime.timedelta(seconds=5)):
-                        stream.stop_stream()
-                        if (note_valid == self.note_name(n0).split('.')[0]):
-                            print('note found !!')
+                time_elapsed = datetime.datetime.now() - start_time
+                if (zelda_lullaby[note_valid] == self.note_name(n0).split('.')[0] or time_elapsed > datetime.timedelta(seconds=5)):
+                    stream.stop_stream()
+                    if (zelda_lullaby[note_valid] == self.note_name(n0).split('.')[0]):
+                        print('note found !!')
 
-                        else:
-                            print('time out :(')
-                        print('------------------------------')
-                        break
+                    else:
+                        print('time out :(')
+                    print('------------------------------')
+                    break
+            note_valid += 1

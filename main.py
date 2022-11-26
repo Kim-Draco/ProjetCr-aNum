@@ -4,8 +4,9 @@ from Menu import MENU, CREA_MENU
 from Colors import COLORS
 from Notes import JOUENOTE
 pygame.init()
+from tuner import Tuner
 
-size = (1280,520)
+size = (1280, 720)
 screen = pygame.display.set_mode(size)
 background = pygame.image.load("images/PageAcceuil/AccueilPLay.png")
 background = pygame.transform.scale(background, (1280, 720))
@@ -65,6 +66,7 @@ while carryOn:
                 if Selection == NbMenu:
                     carryOn=False
                 elif Selection == 0:
+
                     JOUENOTE(screen, carryOn)
 
         # Met à jour en fonction de la position de la souris
