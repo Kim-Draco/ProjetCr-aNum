@@ -30,7 +30,7 @@ class Tuner:
     ######################################################################
 
     def __init__(self):
-        self.image1 = pygame.image.load('images/Symbols/note.png')
+        self.image1 = pygame.image.load('images/Symbols/Flat.png')
         # For printing out notes
         self.note_names = 'C C# D D# E F F# G G# A A# B'.split()
 
@@ -65,7 +65,7 @@ class Tuner:
     def note_to_fftbin(self, n):
         return self.number_to_freq(n) / self.FREQ_STEP
 
-    def musique(self):
+    def musique(self, carryOnThis, carryOn):
 
         imin = max(0, int(np.floor(self.note_to_fftbin(self.NOTE_MIN - 1))))
         imax = min(self.samples_per_fft, int(np.ceil(self.note_to_fftbin(self.NOTE_MAX + 1))))
@@ -82,48 +82,59 @@ class Tuner:
                                         frames_per_buffer=self.FRAME_SIZE)
 
         zelda_lullaby = ['B4', 'D5', 'A4', 'G4', 'A4', 'B4', 'D5', 'A4', 'B4', 'D5', 'A5', 'G5', 'D5', 'C5', 'B4', 'A4']
+        while carryOn and carryOnThis:
+            for event in pygame.event.get():  # User did something
+                if event.type == pygame.QUIT:  # If user clicked close
+                    pygame.quit()
+                    # Flag that we are done, so we can exit the while loop
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        carryOnThis = False
 
-        for note_valid in zelda_lullaby:
-            print('------------------------------')
-            print(note_valid)
+            for note_valid in zelda_lullaby:
+                print('------------------------------')
+                print(note_valid)
 
-            stream.start_stream()
-            start_time = datetime.datetime.now()
+                stream.start_stream()
+                start_time = datetime.datetime.now()
 
-            # Create Hanning window function
-            window = 0.5 * (1 - np.cos(np.linspace(0, 2 * np.pi, self.samples_per_fft, False)))
+                # Create Hanning window function
+                window = 0.5 * (1 - np.cos(np.linspace(0, 2 * np.pi, self.samples_per_fft, False)))
 
-            # Print initial text
-            # print ('sampling at', FSAMP, 'Hz with max resolution of', FREQ_STEP, 'Hz')
-            # print
-            # As long as we are getting data:
-            while stream.is_active():
-                # Shift the buffer down and new data in
-                buf[:-self.FRAME_SIZE] = buf[self.FRAME_SIZE:]
-                buf[-self.FRAME_SIZE:] = np.fromstring(stream.read(self.FRAME_SIZE), np.int16)
+                # Print initial text
+                # print ('sampling at', FSAMP, 'Hz with max resolution of', FREQ_STEP, 'Hz')
+                # print
+                # As long as we are getting data:
 
-                # Run the FFT on the windowed buffer
-                fft = np.fft.rfft(buf * window)
+                while stream.is_active():
 
-                # Get frequency of maximum response in range
-                freq = (np.abs(fft[imin:imax]).argmax() + imin) * self.FREQ_STEP
+                    # Shift the buffer down and new data in
+                    buf[:-self.FRAME_SIZE] = buf[self.FRAME_SIZE:]
+                    buf[-self.FRAME_SIZE:] = np.fromstring(stream.read(self.FRAME_SIZE), np.int16)
 
-                # Get note number and nearest note
-                n = self.freq_to_number(freq)
-                n0 = int(round(n))
+                    # Run the FFT on the windowed buffer
+                    fft = np.fft.rfft(buf * window)
 
-                # Console output once we have a full buffer
-                num_frames += 1
+                    # Get frequency of maximum response in range
+                    freq = (np.abs(fft[imin:imax]).argmax() + imin) * self.FREQ_STEP
 
-                # if num_frames >= FRAMES_PER_FFT:
-                #     print ('freq: {:7.2f} Hz\tnote: {:>3s} {:+.2f}'.format(freq, note_name(n0), n-n0))
+                    # Get note number and nearest note
+                    n = self.freq_to_number(freq)
+                    n0 = int(round(n))
 
-                time_elapsed = datetime.datetime.now() - start_time
-                if (note_valid == self.note_name(n0).split('.')[0] or time_elapsed > datetime.timedelta(seconds=5)):
-                    stream.stop_stream()
-                    if (note_valid == self.note_name(n0).split('.')[0]):
-                        print('note found !!')
-                    else:
-                        print('time out :(')
-                    print('------------------------------')
-                    break
+                    # Console output once we have a full buffer
+                    num_frames += 1
+
+                    # if num_frames >= FRAMES_PER_FFT:
+                    #     print ('freq: {:7.2f} Hz\tnote: {:>3s} {:+.2f}'.format(freq, note_name(n0), n-n0))
+
+                    time_elapsed = datetime.datetime.now() - start_time
+                    if (note_valid == self.note_name(n0).split('.')[0] or time_elapsed > datetime.timedelta(seconds=5)):
+                        stream.stop_stream()
+                        if (note_valid == self.note_name(n0).split('.')[0]):
+                            print('note found !!')
+
+                        else:
+                            print('time out :(')
+                        print('------------------------------')
+                        break

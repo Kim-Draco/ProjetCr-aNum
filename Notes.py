@@ -1,12 +1,12 @@
 # from asyncio import events
 import pygame
-# from tuner import Tuner
+from tuner import Tuner
 
 class JOUENOTE():
 
     def __init__(self, screen, carryOn):
         self.bar = pygame.image.load('images/Symbols/Bar_lines.png')
-        self.bar = pygame.transform.scale(self.bar, (1290, 520))
+        self.bar = pygame.transform.scale(self.bar, (1290, 220))
         self.treble = pygame.image.load('images/Symbols/Treble.png')
         self.treble = pygame.transform.scale(self.treble, (580, 620))
         # The loop will carry on until the user exits the game (e.g. clicks the close button).
@@ -27,19 +27,16 @@ class JOUENOTE():
 
             screen.fill([150,150,150])
             screen.fill([150, 150, 150])
-            screen.blit(self.bar, (0, 0))
+            screen.blit(self.bar, (0, 250))
             screen.blit(self.treble, (-200, 60))
 
             # --- Go ahead and update the screen with what we've drawn.
             pygame.display.flip()
 
-
-
             # Charge tuner
-            # Ne fonctionne pas pour l'instant plus rien ne fonctionne pendant l'écoute
-            #tuner = Tuner()
+            tuner = Tuner()
             # Start listening to the notes played
-            #tuner.musique()
+            tuner.musique(carryOnThis, carryOn)
             
             # --- Limit to 60 frames per second
             clock.tick(60)

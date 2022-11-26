@@ -5,7 +5,7 @@ from Colors import COLORS
 from Notes import JOUENOTE
 pygame.init()
 
-size = (1280,720)
+size = (1280,520)
 screen = pygame.display.set_mode(size)
 background = pygame.image.load("images/PageAcceuil/AccueilPLay.png")
 background = pygame.transform.scale(background, (1280, 720))
