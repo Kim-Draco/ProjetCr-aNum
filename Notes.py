@@ -38,14 +38,34 @@ class JOUENOTE():
         self.do4_pressed = pygame.image.load('images/Button/do4pressed.png')
         self.do5 = pygame.image.load('images/Button/do5.png')
         self.do5_pressed = pygame.image.load('images/Button/do5pressed.png')
-        self.fasharp4 = pygame.image.load('images/Button/fasharp4.png')
-        self.fasharp4_pressed = pygame.image.load('images/Button/fasharp4pressed.png')
         self.fa4 = pygame.image.load('images/Button/fa4.png')
         self.fa4_pressed = pygame.image.load('images/Button/fa4pressed.png')
         self.fa5 = pygame.image.load('images/Button/fa5.png')
         self.fa5_pressed = pygame.image.load('images/Button/fa5pressed.png')
-        self.do4 = pygame.image.load('images/Button/do4.png')
-        self.do4_pressed = pygame.image.load('images/Button/do4pressed.png')
+        self.fasharp4 = pygame.image.load('images/Button/fasharp4.png')
+        self.fasharp4_pressed = pygame.image.load('images/Button/fasharp4pressed.png')
+        self.fasharp5 = pygame.image.load('images/Button/fasharp5.png')
+        self.fasharp5_pressed = pygame.image.load('images/Button/fasharp5pressed.png')
+        self.la4 = pygame.image.load('images/Button/la4.png')
+        self.la4_pressed = pygame.image.load('images/Button/la4pressed.png')
+        self.la5 = pygame.image.load('images/Button/la5.png')
+        self.la5_pressed = pygame.image.load('images/Button/la5pressed.png')
+        self.mi4 = pygame.image.load('images/Button/mi4.png')
+        self.mi4_pressed = pygame.image.load('images/Button/mi4pressed.png')
+        self.mi5 = pygame.image.load('images/Button/mi5.png')
+        self.mi5_pressed = pygame.image.load('images/Button/mi5pressed.png')
+        self.re4 = pygame.image.load('images/Button/re4.png')
+        self.re4_pressed = pygame.image.load('images/Button/re4pressed.png')
+        self.re5 = pygame.image.load('images/Button/re5.png')
+        self.re5_pressed = pygame.image.load('images/Button/re5pressed.png')
+        self.si4 = pygame.image.load('images/Button/si4.png')
+        self.si4_pressed = pygame.image.load('images/Button/si4pressed.png')
+        self.si5 = pygame.image.load('images/Button/si5.png')
+        self.si5_pressed = pygame.image.load('images/Button/si5pressed.png')
+        self.sol4 = pygame.image.load('images/Button/sol4.png')
+        self.sol4_pressed = pygame.image.load('images/Button/sol4pressed.png')
+        self.sol5 = pygame.image.load('images/Button/sol5.png')
+        self.sol5_pressed = pygame.image.load('images/Button/sol5pressed.png')
 
         # The loop will carry on until the user exits the game (e.g. clicks the close button).
         carryOnThis = True
@@ -99,7 +119,7 @@ class JOUENOTE():
 
             # Display if it's without instrument
             # Will need a file of its own
-
+            screen.blit(self.la4, (0, 0))
 
             # Update the screen with what we've drawn.
             pygame.display.flip()
