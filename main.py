@@ -41,7 +41,7 @@ while carryOn:
     
     for event in pygame.event.get(): # User did something
         if event.type == pygame.QUIT: # If user clicked close
-              carryOn = False # Flag that we are done so we can exit the while loop
+              carryOn = False # Flag that we are done, so we can exit the while loop
         elif event.type==pygame.KEYDOWN:
             if event.key==pygame.K_RIGHT or event.key==pygame.K_LEFT:
                 if LeftMenu == True:
@@ -69,7 +69,7 @@ while carryOn:
 
                     JOUENOTE(screen, carryOn)
 
-        # Met à jour en fonction de la position de la souris
+        # Met à jour en function de la position de la souris
         elif event.type == pygame.MOUSEMOTION:
             if pygame.mouse.get_pos()[0] >= 350 and pygame.mouse.get_pos()[0] <= 550 and pygame.mouse.get_pos()[1] >= 110 and pygame.mouse.get_pos()[1] <= 670:
                 Selection = 0
