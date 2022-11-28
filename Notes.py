@@ -1,14 +1,14 @@
 # from asyncio import events
 import pygame
 from tuner import Tuner
-from click import Click
 
 
 class JOUENOTE():
 
     def __init__(self, screen, carryOn):
         count = 0
-        instrument = True
+        instrument = False
+        countButton = 0
 
         self.bar = pygame.image.load('images/Symbols/Bar_lines.png')
         self.bar = pygame.transform.scale(self.bar, (1290, 110))
@@ -18,6 +18,24 @@ class JOUENOTE():
         self.sharp = pygame.transform.scale(self.sharp, (90, 130))
         self.time = pygame.image.load('images/Symbols/Time.png')
         self.time = pygame.transform.scale(self.time, (73, 113))
+
+        # Display on each file with and without instrument
+        self.half_down = pygame.image.load('images/Symbols/Half_note_down.png')
+        self.half_down = pygame.transform.scale(self.half_down, (80, 112))
+        self.quarter_down = pygame.image.load('images/Symbols/Quarter_note_down.png')
+        self.quarter_down = pygame.transform.scale(self.quarter_down, (80, 112))
+        self.half_up = pygame.image.load('images/Symbols/Half_note_up.png')
+        self.half_up = pygame.transform.scale(self.half_up, (80, 112))
+        self.quarter_up = pygame.image.load('images/Symbols/Quarter_note_up.png')
+        self.quarter_up = pygame.transform.scale(self.quarter_up, (80, 112))
+        self.beam_up = pygame.image.load('images/Symbols/Beam_note_sol_la.png')
+        self.beam_up = pygame.transform.scale(self.beam_up, (80, 112))
+        self.half_dotted = pygame.image.load('images/Symbols/Half_note_dotted.png')
+        self.half_dotted = pygame.transform.scale(self.half_dotted, (80, 112))
+        self.half_cross = pygame.image.load('images/Symbols/Half_note_la5.png')
+        self.half_cross = pygame.transform.scale(self.half_cross, (80, 112))
+        self.beam_down = pygame.image.load('images/Symbols/Beam_note_do_si.png')
+        self.beam_down = pygame.transform.scale(self.beam_down, (80, 112))
 
         #Button to click to play music
         self.button = 0
@@ -167,6 +185,13 @@ class JOUENOTE():
             screen.blit(self.treble, (-38, 230))
             screen.blit(self.sharp, (0, 228))
             screen.blit(self.time, (33, 257))
+            pygame.draw.line(screen, (0, 0, 0), (210, 293), (210, 338), 2)
+            pygame.draw.line(screen, (0, 0, 0), (370, 293), (370, 338), 2)
+            pygame.draw.line(screen, (0, 0, 0), (530, 293), (530, 338), 2)
+            pygame.draw.line(screen, (0, 0, 0), (690, 293), (690, 338), 2)
+            pygame.draw.line(screen, (0, 0, 0), (850, 293), (850, 338), 2)
+            pygame.draw.line(screen, (0, 0, 0), (1010, 293), (1010, 338), 2)
+            pygame.draw.line(screen, (0, 0, 0), (1170, 293), (1170, 338), 2)
 
             for event in pygame.event.get(): # User did something
                 if event.type == pygame.QUIT: # If user clicked close
@@ -187,22 +212,50 @@ class JOUENOTE():
                             self.button = 4
                         elif self.sol4_rect.collidepoint(event.pos):
                             self.button = 5
+                            countButton = 4
                         elif self.la4_rect.collidepoint(event.pos):
                             self.button = 6
+                            if count == 2:
+                                countButton = 3
+                            elif count == 4:
+                                countButton = 5
+                            elif count == 7:
+                                countButton = 8
+                            elif count == 15:
+                                countButton = 16
                         elif self.si4_rect.collidepoint(event.pos):
                             self.button = 7
+                            if count == 0:
+                                countButton = 1
+                            elif count == 5:
+                                countButton = 6
+                            elif count == 8:
+                                countButton = 9
+                            elif count == 14:
+                                countButton = 15
                         elif self.do5_rect.collidepoint(event.pos):
                             self.button = 8
+                            countButton = 14
                         elif self.re5_rect.collidepoint(event.pos):
                             self.button = 9
+                            if count == 1:
+                                countButton = 2
+                            elif count == 6:
+                                countButton = 7
+                            elif count == 9:
+                                countButton = 10
+                            elif count == 12:
+                                countButton = 13
                         elif self.mi5_rect.collidepoint(event.pos):
                             self.button = 10
                         elif self.fa5_rect.collidepoint(event.pos):
                             self.button = 11
                         elif self.sol5_rect.collidepoint(event.pos):
                             self.button = 12
+                            countButton = 12
                         elif self.la5_rect.collidepoint(event.pos):
                             self.button = 13
+                            countButton = 11
                         elif self.si5_rect.collidepoint(event.pos):
                             self.button = 14
                         elif self.fasharp4_rect.collidepoint(event.pos):
@@ -214,111 +267,190 @@ class JOUENOTE():
                 # Display the button
                 if self.button == 1:
                     screen.blit(self.do4_pressed, self.do4_rect)
-                    self.button = 0
                 else:
                     screen.blit(self.do4, self.do4_rect)
 
                 if self.button == 2:
                     screen.blit(self.re4_pressed, self.re4_rect)
-                    self.button = 0
                 else:
                     screen.blit(self.re4, self.re4_rect)
 
                 if self.button == 3:
                     screen.blit(self.mi4_pressed, self.mi4_rect)
-                    self.button = 0
                 else:
                     screen.blit(self.mi4, self.mi4_rect)
 
                 if self.button == 4:
                     screen.blit(self.fa4_pressed, self.fa4_rect)
-                    self.button = 0
                 else:
                     screen.blit(self.fa4, self.fa4_rect)
 
                 if self.button == 5:
                     screen.blit(self.sol4_pressed, self.sol4_rect)
-                    self.button = 0
                 else:
                     screen.blit(self.sol4, self.sol4_rect)
 
                 if self.button == 6:
                     screen.blit(self.la4_pressed, self.la4_rect)
-                    self.button = 0
                 else:
                     screen.blit(self.la4, self.la4_rect)
 
                 if self.button == 7:
                     screen.blit(self.si4_pressed, self.si4_rect)
-                    self.button = 0
                 else:
                     screen.blit(self.si4, self.si4_rect)
 
                 if self.button == 8:
                     screen.blit(self.do5_pressed, self.do5_rect)
-                    self.button = 0
                 else:
                     screen.blit(self.do5, self.do5_rect)
 
                 if self.button == 9:
                     screen.blit(self.re5_pressed, self.re5_rect)
-                    self.button = 0
                 else:
                     screen.blit(self.re5, self.re5_rect)
 
                 if self.button == 10:
                     screen.blit(self.mi5_pressed, self.mi5_rect)
-                    self.button = 0
                 else:
                     screen.blit(self.mi5, self.mi5_rect)
 
                 if self.button == 11:
                     screen.blit(self.fa5_pressed, self.fa5_rect)
-                    self.button = 0
                 else:
                     screen.blit(self.fa5, self.fa5_rect)
 
                 if self.button == 12:
                     screen.blit(self.sol5_pressed, self.sol5_rect)
-                    self.button = 0
                 else:
                     screen.blit(self.sol5, self.sol5_rect)
 
                 if self.button == 13:
                     screen.blit(self.la5_pressed, self.la5_rect)
-                    self.button = 0
                 else:
                     screen.blit(self.la5, self.la5_rect)
 
                 if self.button == 14:
                     screen.blit(self.si5_pressed, self.si5_rect)
-                    self.button = 0
                 else:
                     screen.blit(self.si5, self.si5_rect)
 
                 if self.button == 15:
                     screen.blit(self.fasharp4_pressed, self.fasharp4_rect)
-                    self.button = 0
                 else:
                     screen.blit(self.fasharp4, self.fasharp4_rect)
 
                 if self.button == 16:
                     screen.blit(self.fasharp5_pressed, self.fasharp5_rect)
-                    self.button = 0
                 else:
                     screen.blit(self.fasharp5, self.fasharp5_rect)
 
+                if count == 0 and countButton == 1:
+                    screen.blit(self.half_down, (65, 265))
+                    count += 1
+                elif count >= 1:
+                    screen.blit(self.half_down, (65, 265))
 
-            #click = Click()
-            #click.clickButton(screen)
+                if count == 1 and countButton == 2:
+                    screen.blit(self.quarter_down, (140, 260))
+                    count += 1
+                elif count >= 2:
+                    screen.blit(self.quarter_down, (140, 260))
+
+                if count == 2 and countButton == 3:
+                    screen.blit(self.half_up, (197, 252))
+                    count += 1
+                elif count >=3:
+                    screen.blit(self.half_up, (197, 252))
+
+                if count == 3 and countButton == 4:
+                    screen.blit(self.quarter_up, (265, 247))
+                    count += 1
+                elif count >= 4:
+                    screen.blit(self.quarter_up, (265, 247))
+
+                if count == 4 and countButton == 5:
+                    screen.blit(self.beam_up, (280, 252))
+                    count += 1
+                elif count >= 5:
+                    screen.blit(self.beam_up, (280, 252))
+
+                if count == 5 and countButton == 6:
+                    screen.blit(self.half_down, (365, 265))
+                    count += 1
+                elif count >= 6:
+                    screen.blit(self.half_down, (365, 265))
+
+                if count == 6 and countButton == 7:
+                    screen.blit(self.quarter_down, (447, 260))
+                    count += 1
+                elif count >= 7:
+                    screen.blit(self.quarter_down, (447, 260))
+
+                if count == 7 and countButton == 8:
+                    screen.blit(self.half_dotted, (520, 259))
+                    count += 1
+                elif count >= 8:
+                    screen.blit(self.half_dotted, (520, 259))
+
+                if count == 8 and countButton == 9:
+                    screen.blit(self.half_down, (680, 265))
+                    count += 1
+                elif count >= 9:
+                    screen.blit(self.half_down, (680, 265))
+
+                if count == 9 and countButton == 10:
+                    screen.blit(self.quarter_down, (770, 260))
+                    count += 1
+                elif count >= 10:
+                    screen.blit(self.quarter_down, (770, 260))
+
+                if count == 10 and countButton == 11:
+                    screen.blit(self.half_cross, (850, 260))
+                    count += 1
+                elif count >= 11:
+                    screen.blit(self.half_cross, (850, 260))
+
+                if count == 11 and countButton == 12:
+                    screen.blit(self.quarter_down, (930, 242))
+                    count += 1
+                elif count >= 12:
+                    screen.blit(self.quarter_down, (930, 242))
+
+                if count == 12 and countButton == 13:
+                    screen.blit(self.half_down, (1000, 253))
+                    count += 1
+                elif count >= 13:
+                    screen.blit(self.half_down, (1000, 253))
+
+                if count == 13 and countButton == 14:
+                    screen.blit(self.quarter_down, (1070, 266))
+                    count += 1
+                elif count >= 14:
+                    screen.blit(self.quarter_down, (1070, 266))
+
+                if count == 14 and countButton == 15:
+                    screen.blit(self.beam_down, (1083, 259))
+                    count +=1
+                elif count >= 15:
+                    screen.blit(self.beam_down, (1083, 259))
+
+                if count == 15 and countButton == 16:
+                    screen.blit(self.half_dotted, (1160, 259))
+                    count += 1
+                elif count >= 16:
+                    screen.blit(self.half_dotted, (1160, 259))
+
+                self.button = 0
+            else:
+                # Charger the file musique if it's an instrument
+                # tuner = Tuner()
+                # Start listening to the notes played
+                # carryOnThis = tuner.musique(carryOn, carryOnThis, screen)
+                ...
 
             # Update the screen with what we've drawn.
             pygame.display.flip()
-
-            # Charger the file musique if it's an instrument
-            #tuner = Tuner()
-            # Start listening to the notes played
-            #carryOnThis = tuner.musique(carryOn, carryOnThis, screen)
 
             # --- Limit to 60 frames per second
             clock.tick(60)
