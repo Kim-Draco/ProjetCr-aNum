@@ -1,11 +1,15 @@
 # from asyncio import events
 import pygame
 from tuner import Tuner
+from click import Click
 
 
 class JOUENOTE():
 
     def __init__(self, screen, carryOn):
+        count = 0
+        instrument = True
+
         self.bar = pygame.image.load('images/Symbols/Bar_lines.png')
         self.bar = pygame.transform.scale(self.bar, (1290, 110))
         self.treble = pygame.image.load('images/Symbols/Treble.png')
@@ -15,57 +19,136 @@ class JOUENOTE():
         self.time = pygame.image.load('images/Symbols/Time.png')
         self.time = pygame.transform.scale(self.time, (73, 113))
 
-        # Display on each file with and without instrument
-        self.half_down = pygame.image.load('images/Symbols/Half_note_down.png')
-        self.half_down = pygame.transform.scale(self.half_down, (80, 112))
-        self.quarter_down = pygame.image.load('images/Symbols/Quarter_note_down.png')
-        self.quarter_down = pygame.transform.scale(self.quarter_down, (80, 112))
-        self.half_up = pygame.image.load('images/Symbols/Half_note_up.png')
-        self.half_up = pygame.transform.scale(self.half_up, (80, 112))
-        self.quarter_up = pygame.image.load('images/Symbols/Quarter_note_up.png')
-        self.quarter_up = pygame.transform.scale(self.quarter_up, (80, 112))
-        self.beam_up = pygame.image.load('images/Symbols/Beam_note_sol_la.png')
-        self.beam_up = pygame.transform.scale(self.beam_up, (80, 112))
-        self.half_dotted = pygame.image.load('images/Symbols/Half_note_dotted.png')
-        self.half_dotted = pygame.transform.scale(self.half_dotted, (80, 112))
-        self.half_cross = pygame.image.load('images/Symbols/Half_note_la5.png')
-        self.half_cross = pygame.transform.scale(self.half_cross, (80, 112))
-        self.beam_down = pygame.image.load('images/Symbols/Beam_note_do_si.png')
-        self.beam_down = pygame.transform.scale(self.beam_down, (80, 112))
-
-        #Button to put in the file without instrument
+        #Button to click to play music
+        self.button = 0
         self.do4 = pygame.image.load('images/Button/do4.png')
+        self.do4 = pygame.transform.scale(self.do4, (180, 130))
+        self.do4_rect = self.do4.get_rect()
+        self.do4_rect.x = 18
+        self.do4_rect.y = 480
         self.do4_pressed = pygame.image.load('images/Button/do4pressed.png')
+        self.do4_pressed = pygame.transform.scale(self.do4_pressed, (180, 130))
+
         self.do5 = pygame.image.load('images/Button/do5.png')
+        self.do5 = pygame.transform.scale(self.do5, (180, 130))
+        self.do5_rect = self.do5.get_rect()
+        self.do5_rect.x = 585
+        self.do5_rect.y = 580
         self.do5_pressed = pygame.image.load('images/Button/do5pressed.png')
+        self.do5_pressed = pygame.transform.scale(self.do5_pressed, (180, 130))
+
         self.fa4 = pygame.image.load('images/Button/fa4.png')
+        self.fa4 = pygame.transform.scale(self.fa4, (180, 130))
+        self.fa4_rect = self.fa4.get_rect()
+        self.fa4_rect.x = 261
+        self.fa4_rect.y = 580
         self.fa4_pressed = pygame.image.load('images/Button/fa4pressed.png')
+        self.fa4_pressed = pygame.transform.scale(self.fa4_pressed, (180, 130))
+
         self.fa5 = pygame.image.load('images/Button/fa5.png')
+        self.fa5 = pygame.transform.scale(self.fa5, (180, 130))
+        self.fa5_rect = self.fa5.get_rect()
+        self.fa5_rect.x = 828
+        self.fa5_rect.y = 480
         self.fa5_pressed = pygame.image.load('images/Button/fa5pressed.png')
+        self.fa5_pressed = pygame.transform.scale(self.fa5_pressed, (180, 130))
+
         self.fasharp4 = pygame.image.load('images/Button/fasharp4.png')
+        self.fasharp4 = pygame.transform.scale(self.fasharp4, (180, 130))
+        self.fasharp4_rect = self.fasharp4.get_rect()
+        self.fasharp4_rect.x = 450
+        self.fasharp4_rect.y = 360
         self.fasharp4_pressed = pygame.image.load('images/Button/fasharp4pressed.png')
+        self.fasharp4_pressed = pygame.transform.scale(self.fasharp4_pressed, (180, 130))
+
         self.fasharp5 = pygame.image.load('images/Button/fasharp5.png')
+        self.fasharp5 = pygame.transform.scale(self.fasharp5, (180, 130))
+        self.fasharp5_rect = self.fasharp5.get_rect()
+        self.fasharp5_rect.x = 640
+        self.fasharp5_rect.y = 360
         self.fasharp5_pressed = pygame.image.load('images/Button/fasharp5pressed.png')
+        self.fasharp5_pressed = pygame.transform.scale(self.fasharp5_pressed, (180, 130))
+
         self.la4 = pygame.image.load('images/Button/la4.png')
+        self.la4 = pygame.transform.scale(self.la4, (180, 130))
+        self.la4_rect = self.la4.get_rect()
+        self.la4_rect.x = 423
+        self.la4_rect.y = 580
         self.la4_pressed = pygame.image.load('images/Button/la4pressed.png')
+        self.la4_pressed = pygame.transform.scale(self.la4_pressed, (180, 130))
+
         self.la5 = pygame.image.load('images/Button/la5.png')
+        self.la5 = pygame.transform.scale(self.la5, (180, 130))
+        self.la5_rect = self.la5.get_rect()
+        self.la5_rect.x = 990
+        self.la5_rect.y = 480
         self.la5_pressed = pygame.image.load('images/Button/la5pressed.png')
+        self.la5_pressed = pygame.transform.scale(self.la5_pressed, (180, 130))
+
         self.mi4 = pygame.image.load('images/Button/mi4.png')
+        self.mi4 = pygame.transform.scale(self.mi4, (180, 130))
+        self.mi4_rect = self.mi4.get_rect()
+        self.mi4_rect.x = 180
+        self.mi4_rect.y = 480
         self.mi4_pressed = pygame.image.load('images/Button/mi4pressed.png')
+        self.mi4_pressed = pygame.transform.scale(self.mi4_pressed, (180, 130))
+
         self.mi5 = pygame.image.load('images/Button/mi5.png')
+        self.mi5 = pygame.transform.scale(self.mi5, (180, 130))
+        self.mi5_rect = self.mi5.get_rect()
+        self.mi5_rect.x = 747
+        self.mi5_rect.y = 580
         self.mi5_pressed = pygame.image.load('images/Button/mi5pressed.png')
+        self.mi5_pressed = pygame.transform.scale(self.mi5_pressed, (180, 130))
+
         self.re4 = pygame.image.load('images/Button/re4.png')
+        self.re4 = pygame.transform.scale(self.re4, (180, 130))
+        self.re4_rect = self.re4.get_rect()
+        self.re4_rect.x = 99
+        self.re4_rect.y = 580
         self.re4_pressed = pygame.image.load('images/Button/re4pressed.png')
+        self.re4_pressed = pygame.transform.scale(self.re4_pressed, (180, 130))
+
         self.re5 = pygame.image.load('images/Button/re5.png')
+        self.re5 = pygame.transform.scale(self.re5, (180, 130))
+        self.re5_rect = self.re5.get_rect()
+        self.re5_rect.x = 676
+        self.re5_rect.y = 480
         self.re5_pressed = pygame.image.load('images/Button/re5pressed.png')
+        self.re5_pressed = pygame.transform.scale(self.re5_pressed, (180, 130))
+
         self.si4 = pygame.image.load('images/Button/si4.png')
+        self.si4 = pygame.transform.scale(self.si4, (180, 130))
+        self.si4_rect = self.si4.get_rect()
+        self.si4_rect.x = 504
+        self.si4_rect.y = 480
         self.si4_pressed = pygame.image.load('images/Button/si4pressed.png')
+        self.si4_pressed = pygame.transform.scale(self.si4_pressed, (180, 130))
+
         self.si5 = pygame.image.load('images/Button/si5.png')
+        self.si5 = pygame.transform.scale(self.si5, (180, 130))
+        self.si5_rect = self.si5.get_rect()
+        self.si5_rect.x = 1071
+        self.si5_rect.y = 580
         self.si5_pressed = pygame.image.load('images/Button/si5pressed.png')
+        self.si5_pressed = pygame.transform.scale(self.si5_pressed, (180, 130))
+
         self.sol4 = pygame.image.load('images/Button/sol4.png')
+        self.sol4 = pygame.transform.scale(self.sol4, (180, 130))
+        self.sol4_rect = self.sol4.get_rect()
+        self.sol4_rect.x = 342
+        self.sol4_rect.y = 480
         self.sol4_pressed = pygame.image.load('images/Button/sol4pressed.png')
+        self.sol4_pressed = pygame.transform.scale(self.sol4_pressed, (180, 130))
+
         self.sol5 = pygame.image.load('images/Button/sol5.png')
+        self.sol5 = pygame.transform.scale(self.sol5, (180, 130))
+        self.sol5_rect = self.sol5.get_rect()
+        self.sol5_rect.x = 909
+        self.sol5_rect.y = 580
         self.sol5_pressed = pygame.image.load('images/Button/sol5pressed.png')
+        self.sol5_pressed = pygame.transform.scale(self.sol5_pressed, (180, 130))
+
 
         # The loop will carry on until the user exits the game (e.g. clicks the close button).
         carryOnThis = True
@@ -75,13 +158,6 @@ class JOUENOTE():
         clock = pygame.time.Clock()
 
         while carryOnThis and carryOn:
-            for event in pygame.event.get(): # User did something
-                if event.type == pygame.QUIT: # If user clicked close
-                    pygame.quit()
-                    # Flag that we are done, so we can exit the while loop
-                elif event.type==pygame.KEYDOWN:
-                    if event.key==pygame.K_ESCAPE:
-                        carryOnThis = False
 
             screen.fill([150, 150, 150])
             screen.fill([150, 150, 150])
@@ -92,34 +168,149 @@ class JOUENOTE():
             screen.blit(self.sharp, (0, 228))
             screen.blit(self.time, (33, 257))
 
-            # Note displayed when player plays them
-            screen.blit(self.half_down, (65, 265))
-            screen.blit(self.quarter_down, (140, 260))
-            pygame.draw.line(screen, (0, 0, 0), (210, 293), (210, 338), 2)
-            screen.blit(self.half_up, (197, 252))
-            screen.blit(self.quarter_up, (265, 247))
-            screen.blit(self.beam_up, (280, 252))
-            pygame.draw.line(screen, (0, 0, 0), (370, 293), (370, 338), 2)
-            screen.blit(self.half_down, (365, 265))
-            screen.blit(self.quarter_down, (447, 260))
-            pygame.draw.line(screen, (0, 0, 0), (530, 293), (530, 338), 2)
-            screen.blit(self.half_dotted, (520, 259))
-            pygame.draw.line(screen, (0, 0, 0), (690, 293), (690, 338), 2)
-            screen.blit(self.half_down, (680, 265))
-            screen.blit(self.quarter_down, (770, 260))
-            pygame.draw.line(screen, (0, 0, 0), (850, 293), (850, 338), 2)
-            screen.blit(self.half_cross, (850, 260))
-            screen.blit(self.quarter_down, (930, 242))
-            pygame.draw.line(screen, (0, 0, 0), (1010, 293), (1010, 338), 2)
-            screen.blit(self.half_down, (1000, 253))
-            screen.blit(self.quarter_down, (1070, 266))
-            screen.blit(self.beam_down, (1083, 259))
-            pygame.draw.line(screen, (0, 0, 0), (1170, 293), (1170, 338), 2)
-            screen.blit(self.half_dotted, (1160, 259))
+            for event in pygame.event.get(): # User did something
+                if event.type == pygame.QUIT: # If user clicked close
+                    pygame.quit()
+                    # Flag that we are done, so we can exit the while loop
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        carryOnThis = False
+                if not instrument:
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.do4_rect.collidepoint(event.pos):
+                            self.button = 1
+                        elif self.re4_rect.collidepoint(event.pos):
+                            self.button = 2
+                        elif self.mi4_rect.collidepoint(event.pos):
+                            self.button = 3
+                        elif self.fa4_rect.collidepoint(event.pos):
+                            self.button = 4
+                        elif self.sol4_rect.collidepoint(event.pos):
+                            self.button = 5
+                        elif self.la4_rect.collidepoint(event.pos):
+                            self.button = 6
+                        elif self.si4_rect.collidepoint(event.pos):
+                            self.button = 7
+                        elif self.do5_rect.collidepoint(event.pos):
+                            self.button = 8
+                        elif self.re5_rect.collidepoint(event.pos):
+                            self.button = 9
+                        elif self.mi5_rect.collidepoint(event.pos):
+                            self.button = 10
+                        elif self.fa5_rect.collidepoint(event.pos):
+                            self.button = 11
+                        elif self.sol5_rect.collidepoint(event.pos):
+                            self.button = 12
+                        elif self.la5_rect.collidepoint(event.pos):
+                            self.button = 13
+                        elif self.si5_rect.collidepoint(event.pos):
+                            self.button = 14
+                        elif self.fasharp4_rect.collidepoint(event.pos):
+                            self.button = 15
+                        elif self.fasharp5_rect.collidepoint(event.pos):
+                            self.button = 16
 
-            # Display if it's without instrument
-            # Will need a file of its own
-            screen.blit(self.la4, (0, 0))
+            if not instrument:
+                # Display the button
+                if self.button == 1:
+                    screen.blit(self.do4_pressed, self.do4_rect)
+                    self.button = 0
+                else:
+                    screen.blit(self.do4, self.do4_rect)
+
+                if self.button == 2:
+                    screen.blit(self.re4_pressed, self.re4_rect)
+                    self.button = 0
+                else:
+                    screen.blit(self.re4, self.re4_rect)
+
+                if self.button == 3:
+                    screen.blit(self.mi4_pressed, self.mi4_rect)
+                    self.button = 0
+                else:
+                    screen.blit(self.mi4, self.mi4_rect)
+
+                if self.button == 4:
+                    screen.blit(self.fa4_pressed, self.fa4_rect)
+                    self.button = 0
+                else:
+                    screen.blit(self.fa4, self.fa4_rect)
+
+                if self.button == 5:
+                    screen.blit(self.sol4_pressed, self.sol4_rect)
+                    self.button = 0
+                else:
+                    screen.blit(self.sol4, self.sol4_rect)
+
+                if self.button == 6:
+                    screen.blit(self.la4_pressed, self.la4_rect)
+                    self.button = 0
+                else:
+                    screen.blit(self.la4, self.la4_rect)
+
+                if self.button == 7:
+                    screen.blit(self.si4_pressed, self.si4_rect)
+                    self.button = 0
+                else:
+                    screen.blit(self.si4, self.si4_rect)
+
+                if self.button == 8:
+                    screen.blit(self.do5_pressed, self.do5_rect)
+                    self.button = 0
+                else:
+                    screen.blit(self.do5, self.do5_rect)
+
+                if self.button == 9:
+                    screen.blit(self.re5_pressed, self.re5_rect)
+                    self.button = 0
+                else:
+                    screen.blit(self.re5, self.re5_rect)
+
+                if self.button == 10:
+                    screen.blit(self.mi5_pressed, self.mi5_rect)
+                    self.button = 0
+                else:
+                    screen.blit(self.mi5, self.mi5_rect)
+
+                if self.button == 11:
+                    screen.blit(self.fa5_pressed, self.fa5_rect)
+                    self.button = 0
+                else:
+                    screen.blit(self.fa5, self.fa5_rect)
+
+                if self.button == 12:
+                    screen.blit(self.sol5_pressed, self.sol5_rect)
+                    self.button = 0
+                else:
+                    screen.blit(self.sol5, self.sol5_rect)
+
+                if self.button == 13:
+                    screen.blit(self.la5_pressed, self.la5_rect)
+                    self.button = 0
+                else:
+                    screen.blit(self.la5, self.la5_rect)
+
+                if self.button == 14:
+                    screen.blit(self.si5_pressed, self.si5_rect)
+                    self.button = 0
+                else:
+                    screen.blit(self.si5, self.si5_rect)
+
+                if self.button == 15:
+                    screen.blit(self.fasharp4_pressed, self.fasharp4_rect)
+                    self.button = 0
+                else:
+                    screen.blit(self.fasharp4, self.fasharp4_rect)
+
+                if self.button == 16:
+                    screen.blit(self.fasharp5_pressed, self.fasharp5_rect)
+                    self.button = 0
+                else:
+                    screen.blit(self.fasharp5, self.fasharp5_rect)
+
+
+            #click = Click()
+            #click.clickButton(screen)
 
             # Update the screen with what we've drawn.
             pygame.display.flip()
@@ -127,7 +318,7 @@ class JOUENOTE():
             # Charger the file musique if it's an instrument
             #tuner = Tuner()
             # Start listening to the notes played
-            #carryOnThis = tuner.musique(carryOn, carryOnThis)
+            #carryOnThis = tuner.musique(carryOn, carryOnThis, screen)
 
             # --- Limit to 60 frames per second
             clock.tick(60)

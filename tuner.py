@@ -65,7 +65,7 @@ class Tuner:
     def note_to_fftbin(self, n):
         return self.number_to_freq(n) / self.FREQ_STEP
 
-    def musique(self, carryOn, carryOnThis):
+    def musique(self, carryOn, carryOnThis, screen):
 
         imin = max(0, int(np.floor(self.note_to_fftbin(self.NOTE_MIN - 1))))
         imax = min(self.samples_per_fft, int(np.ceil(self.note_to_fftbin(self.NOTE_MAX + 1))))
@@ -144,3 +144,46 @@ class Tuner:
                     print('------------------------------')
                     break
             note_valid += 1
+
+            # Display on each file with and without instrument
+            self.half_down = pygame.image.load('images/Symbols/Half_note_down.png')
+            self.half_down = pygame.transform.scale(self.half_down, (80, 112))
+            self.quarter_down = pygame.image.load('images/Symbols/Quarter_note_down.png')
+            self.quarter_down = pygame.transform.scale(self.quarter_down, (80, 112))
+            self.half_up = pygame.image.load('images/Symbols/Half_note_up.png')
+            self.half_up = pygame.transform.scale(self.half_up, (80, 112))
+            self.quarter_up = pygame.image.load('images/Symbols/Quarter_note_up.png')
+            self.quarter_up = pygame.transform.scale(self.quarter_up, (80, 112))
+            self.beam_up = pygame.image.load('images/Symbols/Beam_note_sol_la.png')
+            self.beam_up = pygame.transform.scale(self.beam_up, (80, 112))
+            self.half_dotted = pygame.image.load('images/Symbols/Half_note_dotted.png')
+            self.half_dotted = pygame.transform.scale(self.half_dotted, (80, 112))
+            self.half_cross = pygame.image.load('images/Symbols/Half_note_la5.png')
+            self.half_cross = pygame.transform.scale(self.half_cross, (80, 112))
+            self.beam_down = pygame.image.load('images/Symbols/Beam_note_do_si.png')
+            self.beam_down = pygame.transform.scale(self.beam_down, (80, 112))
+
+            # Note displayed when player plays them
+            screen.blit(self.half_down, (65, 265))
+            screen.blit(self.quarter_down, (140, 260))
+            pygame.draw.line(screen, (0, 0, 0), (210, 293), (210, 338), 2)
+            screen.blit(self.half_up, (197, 252))
+            screen.blit(self.quarter_up, (265, 247))
+            screen.blit(self.beam_up, (280, 252))
+            pygame.draw.line(screen, (0, 0, 0), (370, 293), (370, 338), 2)
+            screen.blit(self.half_down, (365, 265))
+            screen.blit(self.quarter_down, (447, 260))
+            pygame.draw.line(screen, (0, 0, 0), (530, 293), (530, 338), 2)
+            screen.blit(self.half_dotted, (520, 259))
+            pygame.draw.line(screen, (0, 0, 0), (690, 293), (690, 338), 2)
+            screen.blit(self.half_down, (680, 265))
+            screen.blit(self.quarter_down, (770, 260))
+            pygame.draw.line(screen, (0, 0, 0), (850, 293), (850, 338), 2)
+            screen.blit(self.half_cross, (850, 260))
+            screen.blit(self.quarter_down, (930, 242))
+            pygame.draw.line(screen, (0, 0, 0), (1010, 293), (1010, 338), 2)
+            screen.blit(self.half_down, (1000, 253))
+            screen.blit(self.quarter_down, (1070, 266))
+            screen.blit(self.beam_down, (1083, 259))
+            pygame.draw.line(screen, (0, 0, 0), (1170, 293), (1170, 338), 2)
+            screen.blit(self.half_dotted, (1160, 259))
