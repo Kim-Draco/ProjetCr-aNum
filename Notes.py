@@ -1,6 +1,8 @@
 # from asyncio import events
 import pygame
 from tuner import Tuner
+from pygame import mixer
+import time
 
 
 class JOUENOTE():
@@ -167,6 +169,9 @@ class JOUENOTE():
         self.sol5_pressed = pygame.image.load('images/Button/sol5pressed.png')
         self.sol5_pressed = pygame.transform.scale(self.sol5_pressed, (180, 130))
 
+        mixer.init()
+        self.zelda = pygame.mixer.Sound("music/ZeldasLullaby.wav")
+        self.zelda.play()
 
         # The loop will carry on until the user exits the game (e.g. clicks the close button).
         carryOnThis = True
