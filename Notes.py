@@ -449,10 +449,9 @@ class JOUENOTE():
                 self.button = 0
             else:
                 # Charger the file musique if it's an instrument
-                # tuner = Tuner()
+                tuner = Tuner()
                 # Start listening to the notes played
-                # carryOnThis = tuner.musique(carryOn, carryOnThis, screen)
-                ...
+                carryOnThis = tuner.musique(carryOn, carryOnThis, screen)
 
             # Update the screen with what we've drawn.
             pygame.display.flip()

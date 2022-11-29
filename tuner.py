@@ -158,36 +158,52 @@ class Tuner:
                         print('note found !!')
                         if note_valid == 0:
                             screen.blit(self.half_down, (65, 265))
+                            pygame.display.flip()
                         if note_valid == 1:
                             screen.blit(self.quarter_down, (140, 260))
+                            pygame.display.flip()
                         if note_valid == 2:
                             screen.blit(self.half_up, (197, 252))
+                            pygame.display.flip()
                         if note_valid == 3:
                             screen.blit(self.quarter_up, (265, 247))
+                            pygame.display.flip()
                         if note_valid == 4:
                             screen.blit(self.beam_up, (280, 252))
+                            pygame.display.flip()
                         if note_valid == 5:
                             screen.blit(self.half_down, (365, 265))
+                            pygame.display.flip()
                         if note_valid == 6:
                             screen.blit(self.quarter_down, (447, 260))
+                            pygame.display.flip()
                         if note_valid == 7:
                             screen.blit(self.half_dotted, (520, 259))
+                            pygame.display.flip()
                         if note_valid == 8:
                             screen.blit(self.half_down, (680, 265))
+                            pygame.display.flip()
                         if note_valid == 9:
                             screen.blit(self.quarter_down, (770, 260))
+                            pygame.display.flip()
                         if note_valid == 10:
                             screen.blit(self.half_cross, (850, 260))
+                            pygame.display.flip()
                         if note_valid == 11:
                             screen.blit(self.quarter_down, (930, 242))
+                            pygame.display.flip()
                         if note_valid == 12:
                             screen.blit(self.half_down, (1000, 253))
+                            pygame.display.flip()
                         if note_valid == 13:
                             screen.blit(self.quarter_down, (1070, 266))
+                            pygame.display.flip()
                         if note_valid == 14:
                             screen.blit(self.beam_down, (1083, 259))
+                            pygame.display.flip()
                         if note_valid == 15:
                             screen.blit(self.half_dotted, (1160, 259))
+                            pygame.display.flip()
                     else:
                         print('time out :(')
                     print('------------------------------')
