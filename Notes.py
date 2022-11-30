@@ -9,6 +9,9 @@ class JOUENOTE():
         countButton = 0
         pygame.display.flip()
 
+        self.background = pygame.image.load('images/CityBackground.png')
+        self.background = pygame.transform.scale(self.background, (1280, 720))
+
         self.bar = pygame.image.load('images/Symbols/Bar_lines.png')
         self.bar = pygame.transform.scale(self.bar, (1290, 110))
         self.treble = pygame.image.load('images/Symbols/Treble.png')
@@ -191,10 +194,12 @@ class JOUENOTE():
 
         while carryOnThis and carryOn:
 
-            screen.fill([150, 150, 150])
-            screen.fill([150, 150, 150])
+            #screen.fill([150, 150, 150])
+            screen.blit(self.background, (0, 0))
+
 
             # Display which stays here
+            pygame.draw.rect(screen, (255, 255, 255), [0, 250, 1280, 120])
             screen.blit(self.play, self.play_rect)
             screen.blit(self.bar, (0, 260))
             screen.blit(self.treble, (-38, 230))

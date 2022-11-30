@@ -53,6 +53,9 @@ class Tuner:
         self.play_pressed = pygame.image.load('images/Button/playpressed.png')
         self.play_pressed = pygame.transform.scale(self.play_pressed, (180, 130))
 
+        self.zelda = pygame.mixer.Sound("music/ZeldasLullaby.wav")
+        self.zelda.play()
+
     def freq_to_number(self, f):
         return 69 + 12 * np.log2(f / 440.0)
 
@@ -67,7 +70,10 @@ class Tuner:
 
     def musique(self, carryOn, carryOnThis, screen):
         pygame.display.flip()
-        #time.sleep(15)
+        self.zelda = pygame.mixer.Sound("music/ZeldasLullaby.wav")
+        self.zelda.play()
+
+        time.sleep(15)
         imin = max(0, int(np.floor(self.note_to_fftbin(self.NOTE_MIN - 1))))
         imax = min(self.samples_per_fft, int(np.ceil(self.note_to_fftbin(self.NOTE_MAX + 1))))
 
@@ -86,8 +92,6 @@ class Tuner:
 
         carry = True
         note_valid = 0
-        self.zelda = pygame.mixer.Sound("music/ZeldasLullaby.wav")
-        self.zelda.play()
 
         while carryOn and carryOnThis and carry and note_valid < len(zelda_lullaby):
 
@@ -159,7 +163,7 @@ class Tuner:
                             screen.blit(self.half_up, (197, 252))
                             pygame.display.flip()
                         if note_valid == 3:
-                            screen.blit(self.eighth_up, (197, 252))
+                            screen.blit(self.eighth_up, (271, 260))
                             pygame.display.flip()
                         if note_valid == 4:
                             screen.blit(self.beam_up, (280, 258))
@@ -199,7 +203,55 @@ class Tuner:
                             pygame.display.flip()
                             carryOnThis = False
                     else:
-                        print('time out :(')
+                        if note_valid == 0:
+                            screen.blit(self.half_down, (65, 265))
+                            pygame.display.flip()
+                        if note_valid == 1:
+                            screen.blit(self.quarter_down, (140, 260))
+                            pygame.display.flip()
+                        if note_valid == 2:
+                            screen.blit(self.half_up, (197, 252))
+                            pygame.display.flip()
+                        if note_valid == 3:
+                            screen.blit(self.eighth_up, (271, 260))
+                            pygame.display.flip()
+                        if note_valid == 4:
+                            screen.blit(self.beam_up, (280, 258))
+                            pygame.display.flip()
+                        if note_valid == 5:
+                            screen.blit(self.half_down, (365, 265))
+                            pygame.display.flip()
+                        if note_valid == 6:
+                            screen.blit(self.quarter_down, (447, 260))
+                            pygame.display.flip()
+                        if note_valid == 7:
+                            screen.blit(self.half_dotted, (520, 259))
+                            pygame.display.flip()
+                        if note_valid == 8:
+                            screen.blit(self.half_down, (680, 265))
+                            pygame.display.flip()
+                        if note_valid == 9:
+                            screen.blit(self.quarter_down, (770, 260))
+                            pygame.display.flip()
+                        if note_valid == 10:
+                            screen.blit(self.half_cross, (850, 260))
+                            pygame.display.flip()
+                        if note_valid == 11:
+                            screen.blit(self.quarter_down, (930, 242))
+                            pygame.display.flip()
+                        if note_valid == 12:
+                            screen.blit(self.half_down, (1000, 253))
+                            pygame.display.flip()
+                        if note_valid == 13:
+                            screen.blit(self.eighth_down, (1070, 266))
+                            pygame.display.flip()
+                        if note_valid == 14:
+                            screen.blit(self.beam_down, (1083, 259))
+                            pygame.display.flip()
+                        if note_valid == 15:
+                            screen.blit(self.half_dotted, (1160, 259))
+                            pygame.display.flip()
+                            carryOnThis = False
                     print('------------------------------')
                     break
             note_valid += 1
