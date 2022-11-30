@@ -1,34 +1,11 @@
-#! /usr/bin/env python
-######################################################################
-# tuner.py - a minimal command-line guitar/ukulele tuner in Python.
-# Requires numpy and pyaudio.
-######################################################################
-# Author:  Matt Zucker
-# Date:    July 2016
-# License: Creative Commons Attribution-ShareAlike 3.0
-#          https://creativecommons.org/licenses/by-sa/3.0/us/
-######################################################################
-
 import numpy as np
 import pyaudio
 import datetime
 import time
-
 import pygame
 
 
-######################################################################
-# Feel free to play with these numbers. Might want to change NOTE_MIN
-# and NOTE_MAX especially for guitar/bass. Probably want to keep
-# FRAME_SIZE and FRAMES_PER_FFT to be powers of two.
 class Tuner:
-    ######################################################################
-    # Derived quantities from constants above. Note that as
-    # SAMPLES_PER_FFT goes up, the frequency step size decreases (so
-    # resolution increases); however, it will incur more delay to process
-    # new sounds.
-
-    ######################################################################
 
     def __init__(self):
         self.image1 = pygame.image.load('images/Symbols/Flat.png')
@@ -63,10 +40,6 @@ class Tuner:
         self.beam_down = pygame.image.load('images/Symbols/Beam_note_do_si.png')
         self.beam_down = pygame.transform.scale(self.beam_down, (80, 112))
 
-    ######################################################################
-    # These three functions are based upon this very useful webpage:
-    # https://newt.phys.unsw.edu.au/jw/notes.html
-
     def freq_to_number(self, f):
         return 69 + 12 * np.log2(f / 440.0)
 
@@ -76,17 +49,12 @@ class Tuner:
     def note_name(self, n):
         return self.note_names[n % 12] + str(n / 12 - 1)
 
-    ######################################################################
-    # Ok, ready to go now.
-
-    # Get min/max index within FFT of notes we care about.
-    # See docs for numpy.rfftfreq()
     def note_to_fftbin(self, n):
         return self.number_to_freq(n) / self.FREQ_STEP
 
     def musique(self, carryOn, carryOnThis, screen):
         pygame.display.flip()
-        time.sleep(10)
+        time.sleep(15)
         imin = max(0, int(np.floor(self.note_to_fftbin(self.NOTE_MIN - 1))))
         imax = min(self.samples_per_fft, int(np.ceil(self.note_to_fftbin(self.NOTE_MAX + 1))))
 
@@ -124,11 +92,6 @@ class Tuner:
 
             # Create Hanning window function
             window = 0.5 * (1 - np.cos(np.linspace(0, 2 * np.pi, self.samples_per_fft, False)))
-
-            # Print initial text
-            # print ('sampling at', FSAMP, 'Hz with max resolution of', FREQ_STEP, 'Hz')
-            # print
-            # As long as we are getting data:
 
             while stream.is_active() and carryOnThis:
 
@@ -205,6 +168,7 @@ class Tuner:
                         if note_valid == 15:
                             screen.blit(self.half_dotted, (1160, 259))
                             pygame.display.flip()
+                            carryOnThis = False
                     else:
                         print('time out :(')
                     print('------------------------------')

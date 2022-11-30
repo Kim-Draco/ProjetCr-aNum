@@ -1,4 +1,3 @@
-# from asyncio import events
 import pygame
 from tuner import Tuner
 from pygame import mixer
@@ -42,10 +41,10 @@ class JOUENOTE():
         self.eighth_down = pygame.image.load('images/Symbols/Eighth_note_down.png')
         self.eighth_down = pygame.transform.scale(self.eighth_down, (80, 112))
 
-        #Button to click to play music
-        self.button = 0
         mixer.init()
 
+        #Button to click to play music
+        self.button = 0
         self.do4 = pygame.image.load('images/Button/do4.png')
         self.do4 = pygame.transform.scale(self.do4, (180, 130))
         self.do4_rect = self.do4.get_rect()
@@ -64,29 +63,11 @@ class JOUENOTE():
         self.do5_pressed = pygame.transform.scale(self.do5_pressed, (180, 130))
         self.do5sound = pygame.mixer.Sound("piano-mp3/C5.wav")
         
-        self.fa4 = pygame.image.load('images/Button/fa4.png')
-        self.fa4 = pygame.transform.scale(self.fa4, (180, 130))
-        self.fa4_rect = self.fa4.get_rect()
-        self.fa4_rect.x = 261
-        self.fa4_rect.y = 580
-        self.fa4_pressed = pygame.image.load('images/Button/fa4pressed.png')
-        self.fa4_pressed = pygame.transform.scale(self.fa4_pressed, (180, 130))
-        self.fa4sound = pygame.mixer.Sound("piano-mp3/F4.wav")
-        
-        self.fa5 = pygame.image.load('images/Button/fa5.png')
-        self.fa5 = pygame.transform.scale(self.fa5, (180, 130))
-        self.fa5_rect = self.fa5.get_rect()
-        self.fa5_rect.x = 828
-        self.fa5_rect.y = 480
-        self.fa5_pressed = pygame.image.load('images/Button/fa5pressed.png')
-        self.fa5_pressed = pygame.transform.scale(self.fa5_pressed, (180, 130))
-        self.fa5sound = pygame.mixer.Sound("piano-mp3/F5.wav")
-        
         self.fasharp4 = pygame.image.load('images/Button/fasharp4.png')
         self.fasharp4 = pygame.transform.scale(self.fasharp4, (180, 130))
         self.fasharp4_rect = self.fasharp4.get_rect()
-        self.fasharp4_rect.x = 450
-        self.fasharp4_rect.y = 360
+        self.fasharp4_rect.x = 261
+        self.fasharp4_rect.y = 580
         self.fasharp4_pressed = pygame.image.load('images/Button/fasharp4pressed.png')
         self.fasharp4_pressed = pygame.transform.scale(self.fasharp4_pressed, (180, 130))
         self.fasharp4sound = pygame.mixer.Sound("piano-mp3/Gb4.wav")
@@ -94,8 +75,8 @@ class JOUENOTE():
         self.fasharp5 = pygame.image.load('images/Button/fasharp5.png')
         self.fasharp5 = pygame.transform.scale(self.fasharp5, (180, 130))
         self.fasharp5_rect = self.fasharp5.get_rect()
-        self.fasharp5_rect.x = 640
-        self.fasharp5_rect.y = 360
+        self.fasharp5_rect.x = 828
+        self.fasharp5_rect.y = 480
         self.fasharp5_pressed = pygame.image.load('images/Button/fasharp5pressed.png')
         self.fasharp5_pressed = pygame.transform.scale(self.fasharp5_pressed, (180, 130))
         self.fasharp5sound = pygame.mixer.Sound("piano-mp3/Gb5.wav")
@@ -232,6 +213,7 @@ class JOUENOTE():
                     # Flag that we are done, so we can exit the while loop
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
+                        self.zelda.stop()
                         carryOnThis = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:    
                     if not instrument:
@@ -241,8 +223,6 @@ class JOUENOTE():
                             self.button = 2
                         elif self.mi4_rect.collidepoint(event.pos):
                             self.button = 3
-                        elif self.fa4_rect.collidepoint(event.pos):
-                            self.button = 4
                         elif self.sol4_rect.collidepoint(event.pos):
                             self.button = 5
                             countButton = 4
@@ -281,8 +261,6 @@ class JOUENOTE():
                                 countButton = 13
                         elif self.mi5_rect.collidepoint(event.pos):
                             self.button = 10
-                        elif self.fa5_rect.collidepoint(event.pos):
-                            self.button = 11
                         elif self.sol5_rect.collidepoint(event.pos):
                             self.button = 12
                             countButton = 12
@@ -320,12 +298,6 @@ class JOUENOTE():
                 else:
                     screen.blit(self.mi4, self.mi4_rect)
 
-                if self.button == 4:
-                    screen.blit(self.fa4_pressed, self.fa4_rect)
-                    self.fa4sound.play()
-                else:
-                    screen.blit(self.fa4, self.fa4_rect)
-
                 if self.button == 5:
                     screen.blit(self.sol4_pressed, self.sol4_rect)
                     self.sol4sound.play()
@@ -361,12 +333,6 @@ class JOUENOTE():
                     self.mi5sound.play()
                 else:
                     screen.blit(self.mi5, self.mi5_rect)
-
-                if self.button == 11:
-                    screen.blit(self.fa5_pressed, self.fa5_rect)
-                    self.fa5sound.play()
-                else:
-                    screen.blit(self.fa5, self.fa5_rect)
 
                 if self.button == 12:
                     screen.blit(self.sol5_pressed, self.sol5_rect)
