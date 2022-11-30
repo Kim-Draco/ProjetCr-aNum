@@ -80,19 +80,19 @@ class OPTIONS():
                         temp = 1
 
                     if pygame.mouse.get_pos()[0] >= 365 and pygame.mouse.get_pos()[0] <= 915 and pygame.mouse.get_pos()[1] >= 490 and pygame.mouse.get_pos()[1] <= 670:
-                        Selection = 2
+                        self.Selection = 2
                         temp = 2
 
                 #gère le click de la souris
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if Selection == 0 and event.button == 1:
+                    if self.Selection == 0 and event.button == 1:
                         return self.instrument
                         self.carryThis = False
-                    if Selection == 1 and event.button == 1:
+                    if self.Selection == 1 and event.button == 1:
                         self.instrument = True
                         return self.instrument
                         self.carryThis = False
-                    if Selection == 2 and event.button == 1:
+                    if self.Selection == 2 and event.button == 1:
                         self.instrument = False
                         return self.instrument
                         self.carryThis = False

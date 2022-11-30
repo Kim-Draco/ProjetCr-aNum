@@ -39,6 +39,19 @@ class Tuner:
         self.half_cross = pygame.transform.scale(self.half_cross, (80, 112))
         self.beam_down = pygame.image.load('images/Symbols/Beam_note_do_si.png')
         self.beam_down = pygame.transform.scale(self.beam_down, (80, 112))
+        self.eighth_up = pygame.image.load('images/Symbols/Eighth_note_up.png')
+        self.eighth_up = pygame.transform.scale(self.eighth_up, (80, 112))
+        self.eighth_down = pygame.image.load('images/Symbols/Eighth_note_down.png')
+        self.eighth_down = pygame.transform.scale(self.eighth_down, (80, 112))
+
+        self.button = 0
+        self.play = pygame.image.load('images/Button/play.png')
+        self.play = pygame.transform.scale(self.play, (180, 130))
+        self.play_rect = self.play.get_rect()
+        self.play_rect.x = 550
+        self.play_rect.y = 20
+        self.play_pressed = pygame.image.load('images/Button/playpressed.png')
+        self.play_pressed = pygame.transform.scale(self.play_pressed, (180, 130))
 
     def freq_to_number(self, f):
         return 69 + 12 * np.log2(f / 440.0)
@@ -54,7 +67,7 @@ class Tuner:
 
     def musique(self, carryOn, carryOnThis, screen):
         pygame.display.flip()
-        time.sleep(15)
+        #time.sleep(15)
         imin = max(0, int(np.floor(self.note_to_fftbin(self.NOTE_MIN - 1))))
         imax = min(self.samples_per_fft, int(np.ceil(self.note_to_fftbin(self.NOTE_MAX + 1))))
 
@@ -73,6 +86,8 @@ class Tuner:
 
         carry = True
         note_valid = 0
+        self.zelda = pygame.mixer.Sound("music/ZeldasLullaby.wav")
+        self.zelda.play()
 
         while carryOn and carryOnThis and carry and note_valid < len(zelda_lullaby):
 
@@ -82,8 +97,22 @@ class Tuner:
                     # Flag that we are done, so we can exit the while loop
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
+                        self.zelda.stop()
                         carryOnThis = False
                         return carryOnThis
+                
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.play_rect.collidepoint(event.pos):
+                        self.button = 17
+                        self.zelda.stop()
+                        self.zelda.play()
+
+            if self.button == 17:
+                screen.blit(self.play_pressed, self.play_rect)
+            else:
+                screen.blit(self.play, self.play_rect)
+            
+            self.button = 0
 
             print('------------------------------')
             print(zelda_lullaby[note_valid])
@@ -130,10 +159,10 @@ class Tuner:
                             screen.blit(self.half_up, (197, 252))
                             pygame.display.flip()
                         if note_valid == 3:
-                            screen.blit(self.quarter_up, (265, 247))
+                            screen.blit(self.eighth_up, (197, 252))
                             pygame.display.flip()
                         if note_valid == 4:
-                            screen.blit(self.beam_up, (280, 252))
+                            screen.blit(self.beam_up, (280, 258))
                             pygame.display.flip()
                         if note_valid == 5:
                             screen.blit(self.half_down, (365, 265))
@@ -160,7 +189,7 @@ class Tuner:
                             screen.blit(self.half_down, (1000, 253))
                             pygame.display.flip()
                         if note_valid == 13:
-                            screen.blit(self.quarter_down, (1070, 266))
+                            screen.blit(self.eighth_down, (1070, 266))
                             pygame.display.flip()
                         if note_valid == 14:
                             screen.blit(self.beam_down, (1083, 259))

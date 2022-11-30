@@ -178,8 +178,9 @@ class JOUENOTE():
         self.play_pressed = pygame.image.load('images/Button/playpressed.png')
         self.play_pressed = pygame.transform.scale(self.play_pressed, (180, 130))
 
-        self.zelda = pygame.mixer.Sound("music/ZeldasLullaby.wav")
-        self.zelda.play()
+        if not instrument:
+            self.zelda = pygame.mixer.Sound("music/ZeldasLullaby.wav")
+            self.zelda.play()
 
         # The loop will carry on until the user exits the game (e.g. clicks the close button).
         carryOnThis = True
@@ -194,6 +195,7 @@ class JOUENOTE():
             screen.fill([150, 150, 150])
 
             # Display which stays here
+            screen.blit(self.play, self.play_rect)
             screen.blit(self.bar, (0, 260))
             screen.blit(self.treble, (-38, 230))
             screen.blit(self.sharp, (0, 228))
@@ -272,10 +274,10 @@ class JOUENOTE():
                             self.button = 15
                         elif self.fasharp5_rect.collidepoint(event.pos):
                             self.button = 16
-                    if self.play_rect.collidepoint(event.pos):
-                        self.button = 17
-                        self.zelda.stop()
-                        self.zelda.play()
+                        elif self.play_rect.collidepoint(event.pos):
+                            self.button = 17
+                            self.zelda.stop()
+                            self.zelda.play()
 
             if not instrument:
                 # Display the button
