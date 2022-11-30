@@ -12,6 +12,7 @@
 import numpy as np
 import pyaudio
 import datetime
+import time
 
 import pygame
 
@@ -84,7 +85,8 @@ class Tuner:
         return self.number_to_freq(n) / self.FREQ_STEP
 
     def musique(self, carryOn, carryOnThis, screen):
-
+        pygame.display.flip()
+        time.sleep(10)
         imin = max(0, int(np.floor(self.note_to_fftbin(self.NOTE_MIN - 1))))
         imax = min(self.samples_per_fft, int(np.ceil(self.note_to_fftbin(self.NOTE_MAX + 1))))
 
@@ -117,7 +119,6 @@ class Tuner:
 
             print('------------------------------')
             print(zelda_lullaby[note_valid])
-
             stream.start_stream()
             start_time = datetime.datetime.now()
 

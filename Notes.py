@@ -2,8 +2,6 @@
 import pygame
 from tuner import Tuner
 from pygame import mixer
-import time
-
 
 class JOUENOTE():
 
@@ -11,6 +9,7 @@ class JOUENOTE():
         count = 0
         instrument = False
         countButton = 0
+        pygame.display.flip()
 
         self.bar = pygame.image.load('images/Symbols/Bar_lines.png')
         self.bar = pygame.transform.scale(self.bar, (1290, 110))
@@ -38,9 +37,15 @@ class JOUENOTE():
         self.half_cross = pygame.transform.scale(self.half_cross, (80, 112))
         self.beam_down = pygame.image.load('images/Symbols/Beam_note_do_si.png')
         self.beam_down = pygame.transform.scale(self.beam_down, (80, 112))
+        self.eighth_up = pygame.image.load('images/Symbols/Eighth_note_up.png')
+        self.eighth_up = pygame.transform.scale(self.eighth_up, (80, 112))
+        self.eighth_down = pygame.image.load('images/Symbols/Eighth_note_down.png')
+        self.eighth_down = pygame.transform.scale(self.eighth_down, (80, 112))
 
         #Button to click to play music
         self.button = 0
+        mixer.init()
+
         self.do4 = pygame.image.load('images/Button/do4.png')
         self.do4 = pygame.transform.scale(self.do4, (180, 130))
         self.do4_rect = self.do4.get_rect()
@@ -193,7 +198,6 @@ class JOUENOTE():
         self.play_pressed = pygame.image.load('images/Button/playpressed.png')
         self.play_pressed = pygame.transform.scale(self.play_pressed, (180, 130))
 
-        mixer.init()
         self.zelda = pygame.mixer.Sound("music/ZeldasLullaby.wav")
         self.zelda.play()
 
@@ -296,7 +300,6 @@ class JOUENOTE():
                         self.zelda.stop()
                         self.zelda.play()
 
-
             if not instrument:
                 # Display the button
                 if self.button == 1:
@@ -395,6 +398,11 @@ class JOUENOTE():
                 else:
                     screen.blit(self.fasharp5, self.fasharp5_rect)
 
+                if self.button == 17:
+                    screen.blit(self.play_pressed, self.play_rect)
+                else:
+                    screen.blit(self.play, self.play_rect)
+
                 if count == 0 and countButton == 1:
                     screen.blit(self.half_down, (65, 265))
                     count += 1
@@ -410,20 +418,20 @@ class JOUENOTE():
                 if count == 2 and countButton == 3:
                     screen.blit(self.half_up, (197, 252))
                     count += 1
-                elif count >=3:
+                elif count >= 3:
                     screen.blit(self.half_up, (197, 252))
 
                 if count == 3 and countButton == 4:
-                    screen.blit(self.quarter_up, (265, 247))
+                    screen.blit(self.eighth_up, (271, 260))
                     count += 1
-                elif count >= 4:
-                    screen.blit(self.quarter_up, (265, 247))
+                elif count == 4:
+                    screen.blit(self.eighth_up, (271, 260))
 
                 if count == 4 and countButton == 5:
-                    screen.blit(self.beam_up, (280, 252))
                     count += 1
+                    screen.blit(self.beam_up, (280, 258))
                 elif count >= 5:
-                    screen.blit(self.beam_up, (280, 252))
+                    screen.blit(self.beam_up, (280, 258))
 
                 if count == 5 and countButton == 6:
                     screen.blit(self.half_down, (365, 265))
@@ -474,14 +482,14 @@ class JOUENOTE():
                     screen.blit(self.half_down, (1000, 253))
 
                 if count == 13 and countButton == 14:
-                    screen.blit(self.quarter_down, (1070, 266))
+                    screen.blit(self.eighth_down, (1072, 266))
                     count += 1
-                elif count >= 14:
-                    screen.blit(self.quarter_down, (1070, 266))
+                elif count == 14:
+                    screen.blit(self.eighth_down, (1070, 266))
 
                 if count == 14 and countButton == 15:
+                    count += 1
                     screen.blit(self.beam_down, (1083, 259))
-                    count +=1
                 elif count >= 15:
                     screen.blit(self.beam_down, (1083, 259))
 
@@ -498,10 +506,6 @@ class JOUENOTE():
                 # Start listening to the notes played
                 carryOnThis = tuner.musique(carryOn, carryOnThis, screen)
 
-            if self.button == 17:
-                screen.blit(self.play_pressed, self.play_rect)
-            else:
-                screen.blit(self.play, self.play_rect)
             # Update the screen with what we've drawn.
             pygame.display.flip()
 
