@@ -95,7 +95,7 @@ while carryOn:
             if Selection == NbMenu and event.button == 1:
                 carryOn = False
             elif Selection == 0:
-                JOUENOTE(screen, carryOn)
+                JOUENOTE(screen, carryOn, instrument)
             elif Selection == 2:
                 option = OPTIONS()
                 instrument = option.Option(screen)

@@ -4,9 +4,8 @@ from pygame import mixer
 
 class JOUENOTE():
 
-    def __init__(self, screen, carryOn):
+    def __init__(self, screen, carryOn, instrument):
         count = 0
-        instrument = False
         countButton = 0
         pygame.display.flip()
 
@@ -461,9 +460,7 @@ class JOUENOTE():
 
                 if count == 15 and countButton == 16:
                     screen.blit(self.half_dotted, (1160, 259))
-                    count += 1
-                elif count >= 16:
-                    screen.blit(self.half_dotted, (1160, 259))
+                    carryOnThis = False
 
                 self.button = 0
             else:
