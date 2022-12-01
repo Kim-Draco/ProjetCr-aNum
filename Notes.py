@@ -197,7 +197,6 @@ class JOUENOTE():
             #screen.fill([150, 150, 150])
             screen.blit(self.background, (0, 0))
 
-
             # Display which stays here
             pygame.draw.rect(screen, (255, 255, 255), [0, 250, 1280, 120])
             screen.blit(self.play, self.play_rect)

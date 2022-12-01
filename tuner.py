@@ -12,6 +12,18 @@ class Tuner:
         # For printing out notes
         self.note_names = 'C C# D D# E F F# G G# A A# B'.split()
 
+        self.background = pygame.image.load('images/CityBackground.png')
+        self.background = pygame.transform.scale(self.background, (1280, 720))
+
+        self.bar = pygame.image.load('images/Symbols/Bar_lines.png')
+        self.bar = pygame.transform.scale(self.bar, (1290, 110))
+        self.treble = pygame.image.load('images/Symbols/Treble.png')
+        self.treble = pygame.transform.scale(self.treble, (110, 150))
+        self.sharp = pygame.image.load('images/Symbols/Sharp.png')
+        self.sharp = pygame.transform.scale(self.sharp, (90, 130))
+        self.time = pygame.image.load('images/Symbols/Time.png')
+        self.time = pygame.transform.scale(self.time, (73, 113))
+
         self.NOTE_MIN = 48  # C3
         self.NOTE_MAX = 81  # A5
         self.FSAMP = 22050  # Sampling frequency in Hz
@@ -73,7 +85,6 @@ class Tuner:
         self.zelda = pygame.mixer.Sound("music/ZeldasLullaby.wav")
         self.zelda.play()
 
-        time.sleep(15)
         imin = max(0, int(np.floor(self.note_to_fftbin(self.NOTE_MIN - 1))))
         imax = min(self.samples_per_fft, int(np.ceil(self.note_to_fftbin(self.NOTE_MAX + 1))))
 
@@ -127,6 +138,24 @@ class Tuner:
             window = 0.5 * (1 - np.cos(np.linspace(0, 2 * np.pi, self.samples_per_fft, False)))
 
             while stream.is_active() and carryOnThis:
+
+                # screen.fill([150, 150, 150])
+                screen.blit(self.background, (0, 0))
+
+                # Display which stays here
+                pygame.draw.rect(screen, (255, 255, 255), [0, 250, 1280, 120])
+                screen.blit(self.play, self.play_rect)
+                screen.blit(self.bar, (0, 260))
+                screen.blit(self.treble, (-38, 230))
+                screen.blit(self.sharp, (0, 228))
+                screen.blit(self.time, (33, 257))
+                pygame.draw.line(screen, (0, 0, 0), (210, 293), (210, 338), 2)
+                pygame.draw.line(screen, (0, 0, 0), (370, 293), (370, 338), 2)
+                pygame.draw.line(screen, (0, 0, 0), (530, 293), (530, 338), 2)
+                pygame.draw.line(screen, (0, 0, 0), (690, 293), (690, 338), 2)
+                pygame.draw.line(screen, (0, 0, 0), (850, 293), (850, 338), 2)
+                pygame.draw.line(screen, (0, 0, 0), (1010, 293), (1010, 338), 2)
+                pygame.draw.line(screen, (0, 0, 0), (1170, 293), (1170, 338), 2)
 
                 # Shift the buffer down and new data in
                 buf[:-self.FRAME_SIZE] = buf[self.FRAME_SIZE:]
