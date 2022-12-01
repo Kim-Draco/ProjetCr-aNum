@@ -85,6 +85,7 @@ class Tuner:
         self.zelda = pygame.mixer.Sound("music/ZeldasLullaby.wav")
         self.zelda.play()
 
+        time.sleep(15)
         imin = max(0, int(np.floor(self.note_to_fftbin(self.NOTE_MIN - 1))))
         imax = min(self.samples_per_fft, int(np.ceil(self.note_to_fftbin(self.NOTE_MAX + 1))))
 
