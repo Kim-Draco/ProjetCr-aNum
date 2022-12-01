@@ -177,47 +177,67 @@ class Tuner:
 
                 # if num_frames >= FRAMES_PER_FFT:
                 #     print ('freq: {:7.2f} Hz\tnote: {:>3s} {:+.2f}'.format(freq, note_name(n0), n-n0))
+                rectangle = pygame.Rect([271, 260], [351, 372])
+                rectangle2 = pygame.Rect([1071, 266], [1071 + 80, 266 + 112])
 
                 if (zelda_lullaby[note_valid] == self.note_name(n0).split('.')[0]):
                     stream.stop_stream()
                     print('note found !!')
                     if note_valid >= 0:
                         screen.blit(self.half_down, (65, 265))
+                        pygame.display.flip()
                     if note_valid >= 1:
                         screen.blit(self.quarter_down, (140, 260))
+                        pygame.display.flip()
                     if note_valid >= 2:
                         screen.blit(self.half_up, (197, 252))
+                        pygame.display.flip()
                     if note_valid >= 3:
                         if note_valid == 3:
+                            #rect = pygame.Surface.subsurface(rectangle)
                             screen.blit(self.eighth_up, (271, 260))
+                            pygame.display.flip()
                     if note_valid >= 4:
+                        #screen.blit(rect, [271, 260])
                         screen.blit(self.beam_up, (280, 258))
+                        pygame.display.flip()
                     if note_valid >= 5:
                         screen.blit(self.half_down, (365, 265))
+                        pygame.display.flip()
                     if note_valid >= 6:
                         screen.blit(self.quarter_down, (447, 260))
+                        pygame.display.flip()
                     if note_valid >= 7:
                         screen.blit(self.half_dotted, (520, 259))
+                        pygame.display.flip()
                     if note_valid >= 8:
                         screen.blit(self.half_down, (680, 265))
+                        pygame.display.flip()
                     if note_valid >= 9:
                         screen.blit(self.quarter_down, (770, 260))
+                        pygame.display.flip()
                     if note_valid >= 10:
                         screen.blit(self.half_cross, (850, 260))
+                        pygame.display.flip()
                     if note_valid >= 11:
                         screen.blit(self.quarter_down, (930, 242))
+                        pygame.display.flip()
                     if note_valid >= 12:
                         screen.blit(self.half_down, (1000, 253))
+                        pygame.display.flip()
                     if note_valid >= 13:
                         if note_valid == 13:
+                            #rect2 = pygame.Surface.subsurface(rectangle2)
                             screen.blit(self.eighth_down, (1070, 266))
+                            pygame.display.flip()
                     if note_valid >= 14:
+                        #screen.blit(rect2, [1071, 266])
                         screen.blit(self.beam_down, (1083, 259))
+                        pygame.display.flip()
                     if note_valid >= 15:
                         screen.blit(self.half_dotted, (1160, 259))
+                        pygame.display.flip()
                         carryOnThis = False
                     break
-
-                pygame.display.flip()
 
             note_valid += 1
