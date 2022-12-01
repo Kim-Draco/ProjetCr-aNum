@@ -148,84 +148,46 @@ class Tuner:
                 # if num_frames >= FRAMES_PER_FFT:
                 #     print ('freq: {:7.2f} Hz\tnote: {:>3s} {:+.2f}'.format(freq, note_name(n0), n-n0))
 
-                time_elapsed = datetime.datetime.now() - start_time
-                if (zelda_lullaby[note_valid] == self.note_name(n0).split('.')[0] or time_elapsed > datetime.timedelta(seconds=5)):
+                if (zelda_lullaby[note_valid] == self.note_name(n0).split('.')[0]):
                     stream.stop_stream()
-                    if (zelda_lullaby[note_valid] == self.note_name(n0).split('.')[0]):
-                        print('note found !!')
-                        if note_valid >= 0:
-                            screen.blit(self.half_down, (65, 265))
-                        if note_valid >= 1:
-                            screen.blit(self.quarter_down, (140, 260))
-                        if note_valid >= 2:
-                            screen.blit(self.half_up, (197, 252))
-                        if note_valid >= 3:
-                            if note_valid == 3:
-                                screen.blit(self.eighth_up, (271, 260))
-                        if note_valid >= 4:
-                            screen.blit(self.beam_up, (280, 258))
-                        if note_valid >= 5:
-                            screen.blit(self.half_down, (365, 265))
-                        if note_valid >= 6:
-                            screen.blit(self.quarter_down, (447, 260))
-                        if note_valid >= 7:
-                            screen.blit(self.half_dotted, (520, 259))
-                        if note_valid >= 8:
-                            screen.blit(self.half_down, (680, 265))
-                        if note_valid >= 9:
-                            screen.blit(self.quarter_down, (770, 260))
-                        if note_valid >= 10:
-                            screen.blit(self.half_cross, (850, 260))
-                        if note_valid >= 11:
-                            screen.blit(self.quarter_down, (930, 242))
-                        if note_valid >= 12:
-                            screen.blit(self.half_down, (1000, 253))
-                        if note_valid >= 13:
-                            if note_valid == 13:
-                                screen.blit(self.eighth_down, (1070, 266))
-                        if note_valid >= 14:
-                            screen.blit(self.beam_down, (1083, 259))
-                        if note_valid >= 15:
-                            screen.blit(self.half_dotted, (1160, 259))
-                            carryOnThis = False
-                        pygame.display.flip()
-                    else:
-                        if note_valid >= 0:
-                            screen.blit(self.half_down, (65, 265))
-                        if note_valid >= 1:
-                            screen.blit(self.quarter_down, (140, 260))
-                        if note_valid >= 2:
-                            screen.blit(self.half_up, (197, 252))
-                        if note_valid >= 3:
-                            if note_valid == 3:
-                                screen.blit(self.eighth_up, (271, 260))
-                        if note_valid >= 4:
-                            screen.blit(self.beam_up, (280, 258))
-                        if note_valid >= 5:
-                            screen.blit(self.half_down, (365, 265))
-                        if note_valid >= 6:
-                            screen.blit(self.quarter_down, (447, 260))
-                        if note_valid >= 7:
-                            screen.blit(self.half_dotted, (520, 259))
-                        if note_valid >= 8:
-                            screen.blit(self.half_down, (680, 265))
-                        if note_valid >= 9:
-                            screen.blit(self.quarter_down, (770, 260))
-                        if note_valid >= 10:
-                            screen.blit(self.half_cross, (850, 260))
-                        if note_valid >= 11:
-                            screen.blit(self.quarter_down, (930, 242))
-                        if note_valid >= 12:
-                            screen.blit(self.half_down, (1000, 253))
-                        if note_valid >= 13:
-                            if note_valid == 13:
-                                screen.blit(self.eighth_down, (1070, 266))
-                        if note_valid >= 14:
-                            screen.blit(self.beam_down, (1083, 259))
-                        if note_valid >= 15:
-                            screen.blit(self.half_dotted, (1160, 259))
-                            carryOnThis = False
-                        pygame.display.flip()
-                    print('------------------------------')
+                    print('note found !!')
+                    if note_valid >= 0:
+                        screen.blit(self.half_down, (65, 265))
+                    if note_valid >= 1:
+                        screen.blit(self.quarter_down, (140, 260))
+                    if note_valid >= 2:
+                        screen.blit(self.half_up, (197, 252))
+                    if note_valid >= 3:
+                        if note_valid == 3:
+                            screen.blit(self.eighth_up, (271, 260))
+                    if note_valid >= 4:
+                        screen.blit(self.beam_up, (280, 258))
+                    if note_valid >= 5:
+                        screen.blit(self.half_down, (365, 265))
+                    if note_valid >= 6:
+                        screen.blit(self.quarter_down, (447, 260))
+                    if note_valid >= 7:
+                        screen.blit(self.half_dotted, (520, 259))
+                    if note_valid >= 8:
+                        screen.blit(self.half_down, (680, 265))
+                    if note_valid >= 9:
+                        screen.blit(self.quarter_down, (770, 260))
+                    if note_valid >= 10:
+                        screen.blit(self.half_cross, (850, 260))
+                    if note_valid >= 11:
+                        screen.blit(self.quarter_down, (930, 242))
+                    if note_valid >= 12:
+                        screen.blit(self.half_down, (1000, 253))
+                    if note_valid >= 13:
+                        if note_valid == 13:
+                            screen.blit(self.eighth_down, (1070, 266))
+                    if note_valid >= 14:
+                        screen.blit(self.beam_down, (1083, 259))
+                    if note_valid >= 15:
+                        screen.blit(self.half_dotted, (1160, 259))
+                        carryOnThis = False
                     break
+
+                pygame.display.flip()
+
             note_valid += 1
